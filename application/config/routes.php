@@ -49,6 +49,21 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | Examples:	my-controller/index	-> my_controller/index
 |		my-controller/my-method	-> my_controller/my_method
 */
-$route['default_controller'] = 'menu';
+$home    = md5('home');
+$paslon  = md5('paslon');
+$rel 	 = md5('relawan');
+$tps 	 = md5('tps');
+$lap 	 = md5('laporan');
+$profile = md5('profile');
+
+$route['default_controller']  = 'menu/login';
+
+$route['dashboard/'.$home.'?(:any)']   = 'menu/home/$1';
+$route['paslon/'.$paslon.'?(:any)']    = 'menu/calon/$1';
+$route['relawan/'.$rel.'?(:any)']	   = 'menu/user/$1';
+$route['laporan-tps/'.$tps.'?(:any)']  = 'menu/tps/$1';
+$route['laporan-real/'.$lap.'?(:any)'] = 'menu/laporan/$1';
+$route['profile/'.$profile.'?(:any)']  = 'menu/profile/$1';
+
 $route['404_override'] = 'menu/notfound';
 $route['translate_uri_dashes'] = FALSE;
