@@ -11,36 +11,56 @@ class Menu extends CI_Controller {
 
 	public function index()
 	{
-		$this->load->view('header');
-		$this->load->view('dashboard/admin');
+		$data['header'] = 'Dashboard';
+
+		$this->load->view('header', $data);
+		$this->load->view('dashboard/admin', $data);
 		$this->load->view('footer');
 	}
 
-	public function dashboard($id)
+	public function home($id)
 	{
-		$this->load->view('header');
-		$this->load->view('dashboard/admin');
+		$data['header'] = 'Dashboard';
+
+		$this->load->view('header', $data);
+		$this->load->view('dashboard/admin', $data);
 		$this->load->view('footer');
 	}
 
 	public function calon($id)
 	{
-		# code...
+		$data['header'] = 'Pasangan Calon';
+
+		$this->load->view('header', $data);
+		$this->load->view('calon/view', $data);
+		$this->load->view('footer');
 	}
 
 	public function user($id)
 	{
-		# code...
+		$data['header'] = 'Relawan';
+
+		$this->load->view('header', $data);
+		$this->load->view('user/view', $data);
+		$this->load->view('footer');
 	}
 
 	public function tps($id)
 	{
-		# code...
+		$data['header'] = 'Laporan TPS';
+
+		$this->load->view('header', $data);
+		$this->load->view('laporan/lap_tps_view', $data);
+		$this->load->view('footer');
 	}
 
 	public function laporan($id)
 	{
-		# code...
+		$data['header'] = 'Laporan Real';
+
+		$this->load->view('header', $data);
+		$this->load->view('laporan/lap_real_view', $data);
+		$this->load->view('footer');
 	}
 
 	public function profile($id)
