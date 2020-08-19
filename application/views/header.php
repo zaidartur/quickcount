@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Quick Count</title>
+    <title>Quick Count | <?=$header?></title>
     <!-- HTML5 Shim and Respond.js IE11 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 11]>
@@ -69,6 +69,10 @@
 	</div>
 	<!-- [ Mobile header ] End -->
 
+	<?php 
+		$uri  = $this->uri->segment('1');
+		$user = '1'; 
+	?>
 	<!-- [ navigation menu ] start -->
 	<nav class="pc-sidebar ">
 		<div class="navbar-wrapper">
@@ -85,38 +89,38 @@
 						<label>MENU</label>
 
 					</li>
-					<li class="pc-item pc-hasmenu">
-						<a href="<?php echo base_url()?>" class="pc-link ">
+					<li class="pc-item pc-hasmenu <?php if($uri == 'dashboard') { echo 'active'; } ?>">
+						<a href="<?php echo base_url()?>dashboard/<?php echo md5('home').'?'.$user?>" class="pc-link">
 							<span class="pc-micon"><i data-feather="home"></i></span>
 							<span class="pc-mtext">
 								Dashboard
 							</span>
 						</a>
 					</li>
-					<li class="pc-item pc-hasmenu">
-						<a href="#!" class="pc-link">
-							<span class="pc-micon"><i class="fa fa-user-tie"></i></span>
+					<li class="pc-item pc-hasmenu <?php if($uri == 'paslon') { echo 'active'; } ?>">
+						<a href="<?php echo base_url()?>paslon/<?php echo md5('paslon').'?'.$user?>" class="pc-link">
+							<span class="pc-micon"><i data-feather="users"></i></span>
 							<span class="pc-mtext">
 								Calon
 							</span>
 						</a>
 					</li>
-					<li class="pc-item pc-hasmenu">
-						<a href="#!" class="pc-link "><span class="pc-micon"><i class="fa fa-user-clock"></i></span>
+					<li class="pc-item pc-hasmenu <?php if($uri == 'relawan') { echo 'active'; } ?>">
+						<a href="<?php echo base_url()?>relawan/<?php echo md5('relawan').'?'.$user?>" class="pc-link "><span class="pc-micon"><i data-feather="user-check"></i></span>
 							<span class="pc-mtext">
 								Relawan
 							</span>
 						</a>
 					</li>
-					<li class="pc-item pc-hasmenu">
-						<a href="#!" class="pc-link "><span class="pc-micon"><i data-feather="clipboard"></i></span>
+					<li class="pc-item pc-hasmenu <?php if($uri == 'laporan-tps') { echo 'active'; } ?>">
+						<a href="<?php echo base_url()?>laporan-tps/<?php echo md5('tps').'?'.$user?>" class="pc-link "><span class="pc-micon"><i data-feather="clipboard"></i></span>
 							<span class="pc-mtext">
 								Laporan TPS
 							</span>
 						</a>
 					</li>
-					<li class="pc-item pc-hasmenu">
-						<a href="#!" class="pc-link "><span class="pc-micon"><i data-feather="clipboard"></i></span>
+					<li class="pc-item pc-hasmenu <?php if($uri == 'laporan-real') { echo 'active'; } ?>">
+						<a href="<?php echo base_url()?>laporan-real/<?php echo md5('laporan').'?'.$user?>" class="pc-link "><span class="pc-micon"><i data-feather="clipboard"></i></span>
 							<span class="pc-mtext">
 								Laporan Real
 							</span>
@@ -134,7 +138,7 @@
 			<div class="mr-auto pc-mob-drp">
 				<ul class="list-unstyled">
 					<li class="dropdown pc-h-item">
-						<h4 class="m-b-10">Dashboard</h4>
+						<h4 class="pc-head-link m-b-10"><?=$header?></h4>
 					</li>
 				</ul>
 			</div>
