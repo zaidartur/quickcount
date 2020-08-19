@@ -72,6 +72,8 @@
     <script src="<?php echo base_url()?>assets/js/pages/todo.js"></script>
 
     <script>
+        $('#user-list-table').DataTable();
+        
         // [ revenue-map ] start
         $(function() {
             var options = {
