@@ -149,7 +149,7 @@
 				<ul class="list-unstyled">
 					<li class="dropdown pc-h-item">
 						<a class="pc-head-link dropdown-toggle arrow-none mr-0" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
-							<img src="<?php echo base_url()?>assets/images/user/avatar-2.jpg" alt="user-image" class="user-avtar">
+							<img src="<?php echo base_url()?>assets/images/admin/<?=$admin->admin_foto?>" alt="user-image" class="user-avtar">
 							<span>
 								<span class="user-name"><?=$admin->nama_admin?></span>
 								<span class="user-desc"><?=$level?></span>
