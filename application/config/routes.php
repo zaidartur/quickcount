@@ -62,6 +62,9 @@ $route['user-login']		  = 'welcome/user';
 $route['auth-login']		  = 'welcome/login_admin';
 $route['auth-user']			  = 'welcome/login_user';
 
+//backend
+$route['simpan-calon/(:any)']		  = 'calon/create/$1';
+
 //menu
 $route['dashboard/'.$home.'_(:any)']   = 'menu/home/$1';
 $route['paslon/'.$paslon.'_(:any)']    = 'menu/calon/$1';
