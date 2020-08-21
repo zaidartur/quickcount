@@ -21,7 +21,7 @@
 	-->
 
     <!-- Favicon icon -->
-    <link rel="icon" href="<?php echo base_url()?>assets/images/favicon.svg" type="image/x-icon">
+    <link rel="icon" href="<?php echo base_url()?>assets/images/clock.svg" type="image/x-icon">
 
     <link rel="stylesheet" href="<?php echo base_url()?>assets/css/plugins/dataTables.bootstrap4.min.css">
     <!-- font css -->
