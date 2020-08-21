@@ -3,7 +3,7 @@
 
 <head>
 
-	<title>Nextro Able Bootstrap 4 Admin Template</title>
+	<title>User / Relawan</title>
 	<!-- HTML5 Shim and Respond.js IE11 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 	<!--[if lt IE 11]>
@@ -14,66 +14,65 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-	<meta name="description" content="" />
+	<!-- <meta name="description" content="" />
 	<meta name="keywords" content="">
-	<meta name="author" content="Phoenixcoded" />
+	<meta name="author" content="Phoenixcoded" /> -->
 
 	<!-- Favicon icon -->
-	<link rel="icon" href="assets/images/favicon.svg" type="image/x-icon">
+	<link rel="icon" href="<?php echo base_url(); ?>assets/images/clock.svg" type="image/x-icon">
+
+    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/plugins/animate.min.css">
 
 	<!-- font css -->
-	<link rel="stylesheet" href="assets/fonts/font-awsome-pro/css/pro.min.css">
-	<link rel="stylesheet" href="assets/fonts/feather.css">
-	<link rel="stylesheet" href="assets/fonts/fontawesome.css">
+	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/fonts/font-awsome-pro/css/pro.min.css">
+	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/fonts/feather.css">
+	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/fonts/fontawesome.css">
 
 	<!-- vendor css -->
-	<link rel="stylesheet" href="assets/css/style.css">
-	<link rel="stylesheet" href="assets/css/customizer.css">
+	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/style.css">
+	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/customizer.css">
 
+    <style type="text/css">
+        .aut-bg-img2 {
+            background-image: url("<?php echo base_url(); ?>assets/images/img-auth-big.jpg");
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+        }
+    </style>
 
 </head>
 
 <!-- [ signin-img ] start -->
-<div class="auth-wrapper align-items-stretch aut-bg-img">
+<div class="auth-wrapper align-items-stretch aut-bg-img2">
 	<div class="flex-grow-1">
 		<div class="h-100 d-md-flex align-items-end auth-side-img">
 			<div class="col-sm-10 auth-content w-auto">
-				<img src="assets/images/logo.svg" alt="" class="img-fluid">
+				<img src="<?php echo base_url(); ?>assets/images/clock.svg" alt="" class="img-fluid">
 				<h1 class="text-white my-4">Welcome Back!</h1>
-				<h4 class="text-white font-weight-normal">Signin to your account and get explore the Nextro Dashboard Template.<br />Do not forget to play with live customizer</h4>
+				<h4 class="text-white font-weight-normal">Signin to your account and let's start live voting.<br />Do not forget to carefully.</h4>
 			</div>
 		</div>
 		<div class="auth-side-form">
 			<div class=" auth-content">
-				<img src="assets/images/auth/auth-logo-dark.svg" alt="" class="img-fluid mb-4 d-block d-xl-none d-lg-none">
-				<h3 class="mb-4 f-w-400">Signin</h3>
-				<div class="input-group mb-3">
-					<div class="input-group-prepend">
-						<span class="input-group-text"><i data-feather="mail"></i></span>
-					</div>
-					<input type="email" class="form-control" placeholder="Email address">
-				</div>
-				<div class="input-group mb-4">
-					<div class="input-group-prepend">
-						<span class="input-group-text"><i data-feather="lock"></i></span>
-					</div>
-					<input type="password" class="form-control" placeholder="Password">
-				</div>
-				<div class="form-group text-left mt-2">
-					<div class="custom-control custom-checkbox">
-						<input type="checkbox" class="custom-control-input input-primary" id="customCheckdefh2" checked="">
-						<label class="custom-control-label" for="customCheckdefh2">Save credentials</label>
-					</div>
-				</div>
-				<button class="btn btn-block btn-primary mb-0">Signin</button>
-				<div class="text-center">
-					<div class="saprator my-4"><span>OR</span></div>
-					<button class="btn text-white bg-facebook mb-2 mr-2  wid-40 px-0 hei-40 rounded-circle"><i class="fab fa-facebook-f"></i></button>
-					<button class="btn text-white bg-googleplus mb-2 mr-2 wid-40 px-0 hei-40 rounded-circle"><i class="fab fa-google-plus-g"></i></button>
-					<button class="btn text-white bg-twitter mb-2  wid-40 px-0 hei-40 rounded-circle"><i class="fab fa-twitter"></i></button>
-					<p class="mb-2 mt-4 text-muted">Forgot password? <a href="auth-reset-password-img-side.html" class="f-w-400">Reset</a></p>
-					<p class="mb-0 text-muted">Don’t have an account? <a href="auth-signup-img-side.html" class="f-w-400">Signup</a></p>
-				</div>
+				<img src="<?php echo base_url(); ?>assets/images/auth-logo-dark.svg" alt="" class="img-fluid mb-4 d-block d-xl-none d-lg-none">
+				<h3 class="mb-4 f-w-400">Signin User</h3>
+                <form action="<?php echo base_url(); ?>auth-user" method="post">
+    				<div class="input-group mb-3">
+    					<div class="input-group-prepend">
+    						<span class="input-group-text"><i data-feather="user"></i></span>
+    					</div>
+    					<input type="text" class="form-control" id="username" name="username" placeholder="Username" required>
+    				</div>
+    				<div class="input-group mb-4">
+    					<div class="input-group-prepend">
+    						<span class="input-group-text"><i data-feather="lock"></i></span>
+    					</div>
+    					<input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
+    				</div>
+    				
+    				<button class="btn btn-block btn-primary mb-0">Signin</button>
+                </form>
 			</div>
 		</div>
 	</div>
@@ -81,10 +80,19 @@
 <!-- [ signin-img ] end -->
 
 <!-- Required Js -->
-<script src="assets/js/vendor-all.min.js"></script>
-<script src="assets/js/plugins/bootstrap.min.js"></script>
-<script src="assets/js/plugins/feather.min.js"></script>
-<script src="assets/js/pcoded.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/js/vendor-all.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/js/plugins/bootstrap.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/js/plugins/feather.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/js/pcoded.min.js"></script>
+
+<!-- notification Js -->
+<script src="<?php echo base_url()?>assets/js/plugins/bootstrap-notify.min.js"></script>
+<script src="<?php echo base_url()?>assets/js/pages/ac-notification.js"></script>
+
+<!-- sweet alert Js -->
+<script src="<?php echo base_url()?>assets/js/plugins/sweetalert.min.js"></script>
+<script src="<?php echo base_url()?>assets/js/pages/ac-alert.js"></script>
+
 <div class="pct-customizer">
     <div href="#!" class="pct-c-btn">
         <button class="btn btn-light-danger" id="pct-toggler">
