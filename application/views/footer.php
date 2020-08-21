@@ -67,6 +67,10 @@
     <script src="<?php echo base_url()?>assets/js/plugins/Chart.min.js"></script>
     <script src="<?php echo base_url()?>assets/js/pages/chart-chart-custom.js"></script>
 
+    <!-- notification Js -->
+    <script src="<?php echo base_url()?>assets/js/plugins/bootstrap-notify.min.js"></script>
+    <script src="<?php echo base_url()?>assets/js/pages/ac-notification.js"></script>
+
     <!-- Apex Chart -->
     <script src="<?php echo base_url()?>assets/js/plugins/apexcharts.min.js"></script>
     <script src="<?php echo base_url()?>assets/js/pages/todo.js"></script>
