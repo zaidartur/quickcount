@@ -3,7 +3,7 @@
 
 <head>
 
-	<title>Nextro Able Bootstrap 4 Admin Template</title>
+	<title>Login Admin</title>
 	<!-- HTML5 Shim and Respond.js IE11 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 	<!--[if lt IE 11]>
@@ -14,24 +14,27 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-	<meta name="description" content="" />
+	<!-- <meta name="description" content="" />
 	<meta name="keywords" content="">
-	<meta name="author" content="Phoenixcoded" />
+	<meta name="author" content="Phoenixcoded" /> -->
 
 	<!-- Favicon icon -->
-	<link rel="icon" href="assets/images/favicon.svg" type="image/x-icon">
+	<link rel="icon" href="<?php echo base_url(); ?>assets/images/clock.svg" type="image/x-icon">
+
+    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/plugins/animate.min.css">
 
 	<!-- font css -->
-	<link rel="stylesheet" href="assets/fonts/font-awsome-pro/css/pro.min.css">
-	<link rel="stylesheet" href="assets/fonts/feather.css">
-	<link rel="stylesheet" href="assets/fonts/fontawesome.css">
+	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/fonts/font-awsome-pro/css/pro.min.css">
+	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/fonts/feather.css">
+	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/fonts/fontawesome.css">
 
 	<!-- vendor css -->
-	<link rel="stylesheet" href="assets/css/style.css">
-	<link rel="stylesheet" href="assets/css/customizer.css">
+	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/style.css">
+	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/customizer.css">
 
 
 </head>
+<body <?php if($this->session->flashdata('error')) { echo 'onload="sweet()"'; } ?> >
 
 <!-- [ auth-signup ] start -->
 <div class="auth-wrapper auth-v3">
@@ -39,44 +42,46 @@
 		<div class="card">
 			<div class="row align-items-stretch text-center">
 				<div class="col-md-6 img-card-side">
-					<img src="assets/images/auth/auth-side1.jpg" alt="" class="img-fluid">
+					<img src="<?php echo base_url(); ?>assets/images/auth-side.jpg" alt="" class="img-fluid">
 					<div class="img-card-side-content">
-						<img src="assets/images/logo-dark.svg" alt="" class="img-fluid">
+						<img src="<?php echo base_url(); ?>assets/images/clock.svg" alt="" class="img-fluid">
 					</div>
 				</div>
 				<div class="col-md-6">
 					<div class="card-body">
 						<div class="text-left">
-							<h4 class="mb-3 f-w-600">Welcome to <span class="text-primary">Nextro</span></h4>
-							<p class="text-muted mb-4">Welcome back, Please login <br>into a account</p>
+							<h4 class="mb-3 f-w-600">Welcome to <span class="text-primary">QuickCount</span></h4>
+							<p class="text-muted mb-4">Welcome back, Please login <br>into an admin account</p>
 						</div>
-						<div class="">
-							<div class="input-group mb-3">
-								<div class="input-group-prepend">
-									<span class="input-group-text"><i data-feather="mail"></i></span>
-								</div>
-								<input type="email" class="form-control" placeholder="Email address">
-							</div>
-							<div class="input-group mb-4">
-								<div class="input-group-prepend">
-									<span class="input-group-text"><i data-feather="lock"></i></span>
-								</div>
-								<input type="password" class="form-control" placeholder="Password">
-							</div>
-							<div class="form-group text-left my-2">
-								<div class="float-right">
-									<a href="#!" class="text-primary"><span>Forgot Password?</span></a>
-								</div>
-								<div class="custom-control custom-checkbox d-inline-block">
-									<input type="checkbox" class="custom-control-input input-primary" id="customCheckdefh2" checked="">
-									<label class="custom-control-label" for="customCheckdefh2">Remember me</label>
-								</div>
-							</div>
-						</div>
-						<div class="text-right">
-							<button class="btn btn-light-primary mt-2">Cancel</button>
-							<button class="btn btn-primary mt-2">Sign up</button>
-						</div>
+                        <form action="<?php echo base_url(); ?>auth-login" method="post">
+    						<div class="">
+    							<div class="input-group mb-3">
+    								<div class="input-group-prepend">
+    									<span class="input-group-text"><i data-feather="user"></i></span>
+    								</div>
+    								<input type="text" class="form-control" name="username" id="username" placeholder="Username" required>
+    							</div>
+    							<div class="input-group mb-4">
+    								<div class="input-group-prepend">
+    									<span class="input-group-text"><i data-feather="lock"></i></span>
+    								</div>
+    								<input type="password" class="form-control" name="password" id="password" placeholder="Password" required>
+    							</div>
+    							<div class="form-group text-left my-2">
+    								<!-- <div class="float-right">
+    									<a href="#!" class="text-primary"><span>Forgot Password?</span></a>
+    								</div>
+    								<div class="custom-control custom-checkbox d-inline-block">
+    									<input type="checkbox" class="custom-control-input input-primary" id="customCheckdefh2" checked="">
+    									<label class="custom-control-label" for="customCheckdefh2">Remember me</label>
+    								</div> -->
+    							</div>
+    						</div>
+    						<div class="text-right">
+    							<button type="button" class="btn btn-light-primary mt-2" onclick="user()">Sign in User</button>
+    							<button type="submit" class="btn btn-primary mt-2">Sign in</button>
+    						</div>
+                        </form>
 					</div>
 				</div>
 			</div>
@@ -86,10 +91,18 @@
 <!-- [ auth-signup ] end -->
 
 <!-- Required Js -->
-<script src="assets/js/vendor-all.min.js"></script>
-<script src="assets/js/plugins/bootstrap.min.js"></script>
-<script src="assets/js/plugins/feather.min.js"></script>
-<script src="assets/js/pcoded.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/js/vendor-all.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/js/plugins/bootstrap.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/js/plugins/feather.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/js/pcoded.min.js"></script>
+
+<!-- notification Js -->
+<script src="<?php echo base_url()?>assets/js/plugins/bootstrap-notify.min.js"></script>
+<script src="<?php echo base_url()?>assets/js/pages/ac-notification.js"></script>
+
+<!-- sweet alert Js -->
+<script src="<?php echo base_url()?>assets/js/plugins/sweetalert.min.js"></script>
+
 <div class="pct-customizer">
     <div href="#!" class="pct-c-btn">
         <button class="btn btn-light-danger" id="pct-toggler">
@@ -142,6 +155,17 @@
         </div>
     </div>
 </div>
+
+<script>
+    function sweet() {
+        swal("Error!", "Incorrect username / password!", "error");
+    }
+
+    function user() {
+      window.location.href = '<?php echo base_url(); ?>user-login';
+    }
+</script>
+
 <script>
     // header option
     $('#pct-toggler').on('click', function() {
