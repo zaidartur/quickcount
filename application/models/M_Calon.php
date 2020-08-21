@@ -6,13 +6,19 @@ class M_Calon extends CI_Model {
 	private $_calon = 'calon';
 	private $_live  = 'live_voting';
 
-	public function created()
+	public function getAll()
+	{
+		return $this->db->get($this->_calon)->result();
+	}
+
+	public function created($id)
 	{
 		//init
 		$file     = 'gambar';
 		$path     = './assets/images/calon/';
 		$id_calon = uniqid();
 		$id_live  = uniqid();
+		$id_admin = decrypt_url($id);
 
 		if($_FILES[$file]['name'] == '') {
 			$foto   = 'noimage.png';
@@ -26,9 +32,9 @@ class M_Calon extends CI_Model {
 			'alamat_calon'		=> $this->input->post('alamat'),
 			'email_calon'		=> $this->input->post('email'),
 			'image_calon'		=> $foto,
-			'no_urut_calon'		=> $this->input->post('urut'),
+			'no_urut_calon'		=> $this->input->post('no_urut'),
 			'calon_datetime'	=> date('Y-m-d H:i:s'),
-			'calon_who_create'	=> $this->input->post('admin'),
+			'calon_who_create'	=> $id_admin,
 		);
 
 		$data2 = array(
