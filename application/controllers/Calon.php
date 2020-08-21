@@ -14,14 +14,19 @@ class Calon extends CI_Controller {
 		
 	}
 
-	public function create()
+	public function create($id)
 	{
-		$obj = $this->m_calon->created();
+		$obj 	= $this->m_calon->created($id);
+		$paslon = md5('paslon');
 
 		if($obj) {
-			$res = array('response' => 'sukses');
+			// $res = array('response' => 'sukses');
+			$this->session->set_flashdata('sukses', 'Berhasil menyimpan data');
+			header('Location: '.base_url().'paslon/'.$paslon.'_'.$id);
 		} else {
-			$res = array('response' => 'fail');
+			$this->session->set_flashdata('error', 'Gagal menyimpan data');
+			header('Location: '.base_url().'paslon/'.$paslon.'_'.$id);
+			// $res = array('response' => 'fail');
 		}
 
 		echo json_encode($res);
