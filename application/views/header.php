@@ -23,6 +23,7 @@
     <!-- Favicon icon -->
     <link rel="icon" href="<?php echo base_url()?>assets/images/clock.svg" type="image/x-icon">
 
+    <link rel="stylesheet" href="assets/css/plugins/animate.min.css">
     <link rel="stylesheet" href="<?php echo base_url()?>assets/css/plugins/dataTables.bootstrap4.min.css">
     <!-- font css -->
     <link rel="stylesheet" href="<?php echo base_url()?>assets/fonts/font-awsome-pro/css/pro.min.css">
@@ -71,7 +72,9 @@
 
 	<?php 
 		$uri  = $this->uri->segment('1');
-		$user = '1'; 
+		$user = encrypt_url($admin->id_admin); 
+		if ($admin->level == 1) { $level = 'Administrator'; } else { $level = 'Calon'; }
+		// print_r($admin);
 	?>
 	<!-- [ navigation menu ] start -->
 	<nav class="pc-sidebar ">
@@ -90,7 +93,7 @@
 
 					</li>
 					<li class="pc-item pc-hasmenu <?php if($uri == 'dashboard') { echo 'active'; } ?>">
-						<a href="<?php echo base_url()?>dashboard/<?php echo md5('home').'?'.$user?>" class="pc-link">
+						<a href="<?php echo base_url()?>dashboard/<?php echo md5('home').'_'.$user?>" class="pc-link">
 							<span class="pc-micon"><i data-feather="home"></i></span>
 							<span class="pc-mtext">
 								Dashboard
@@ -98,7 +101,7 @@
 						</a>
 					</li>
 					<li class="pc-item pc-hasmenu <?php if($uri == 'paslon') { echo 'active'; } ?>">
-						<a href="<?php echo base_url()?>paslon/<?php echo md5('paslon').'?'.$user?>" class="pc-link">
+						<a href="<?php echo base_url()?>paslon/<?php echo md5('paslon').'_'.$user?>" class="pc-link">
 							<span class="pc-micon"><i data-feather="users"></i></span>
 							<span class="pc-mtext">
 								Calon
@@ -106,21 +109,21 @@
 						</a>
 					</li>
 					<li class="pc-item pc-hasmenu <?php if($uri == 'relawan') { echo 'active'; } ?>">
-						<a href="<?php echo base_url()?>relawan/<?php echo md5('relawan').'?'.$user?>" class="pc-link "><span class="pc-micon"><i data-feather="user-check"></i></span>
+						<a href="<?php echo base_url()?>relawan/<?php echo md5('relawan').'_'.$user?>" class="pc-link "><span class="pc-micon"><i data-feather="user-check"></i></span>
 							<span class="pc-mtext">
 								Relawan
 							</span>
 						</a>
 					</li>
 					<li class="pc-item pc-hasmenu <?php if($uri == 'laporan-tps') { echo 'active'; } ?>">
-						<a href="<?php echo base_url()?>laporan-tps/<?php echo md5('tps').'?'.$user?>" class="pc-link "><span class="pc-micon"><i data-feather="clipboard"></i></span>
+						<a href="<?php echo base_url()?>laporan-tps/<?php echo md5('tps').'_'.$user?>" class="pc-link "><span class="pc-micon"><i data-feather="clipboard"></i></span>
 							<span class="pc-mtext">
 								Laporan TPS
 							</span>
 						</a>
 					</li>
 					<li class="pc-item pc-hasmenu <?php if($uri == 'laporan-real') { echo 'active'; } ?>">
-						<a href="<?php echo base_url()?>laporan-real/<?php echo md5('laporan').'?'.$user?>" class="pc-link "><span class="pc-micon"><i data-feather="clipboard"></i></span>
+						<a href="<?php echo base_url()?>laporan-real/<?php echo md5('laporan').'_'.$user?>" class="pc-link "><span class="pc-micon"><i data-feather="clipboard"></i></span>
 							<span class="pc-mtext">
 								Laporan Real
 							</span>
@@ -148,8 +151,8 @@
 						<a class="pc-head-link dropdown-toggle arrow-none mr-0" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
 							<img src="<?php echo base_url()?>assets/images/user/avatar-2.jpg" alt="user-image" class="user-avtar">
 							<span>
-								<span class="user-name">Admin</span>
-								<span class="user-desc">Administrator</span>
+								<span class="user-name"><?=$admin->nama_admin?></span>
+								<span class="user-desc"><?=$level?></span>
 							</span>
 						</a>
 						<div class="dropdown-menu dropdown-menu-right pc-h-dropdown">
