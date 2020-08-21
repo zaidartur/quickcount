@@ -56,14 +56,19 @@ $tps 	 = md5('tps');
 $lap 	 = md5('laporan');
 $profile = md5('profile');
 
-$route['default_controller']  = 'menu/login';
+//login
+$route['default_controller']  = 'welcome';
+$route['user-login']		  = 'welcome/user';
+$route['auth-login']		  = 'welcome/login_admin';
+$route['auth-user']			  = 'welcome/login_user';
 
-$route['dashboard/'.$home.'?(:any)']   = 'menu/home/$1';
-$route['paslon/'.$paslon.'?(:any)']    = 'menu/calon/$1';
-$route['relawan/'.$rel.'?(:any)']	   = 'menu/user/$1';
-$route['laporan-tps/'.$tps.'?(:any)']  = 'menu/tps/$1';
-$route['laporan-real/'.$lap.'?(:any)'] = 'menu/laporan/$1';
-$route['profile/'.$profile.'?(:any)']  = 'menu/profile/$1';
+//menu
+$route['dashboard/'.$home.'_(:any)']   = 'menu/home/$1';
+$route['paslon/'.$paslon.'_(:any)']    = 'menu/calon/$1';
+$route['relawan/'.$rel.'_(:any)']	   = 'menu/user/$1';
+$route['laporan-tps/'.$tps.'_(:any)']  = 'menu/tps/$1';
+$route['laporan-real/'.$lap.'_(:any)'] = 'menu/laporan/$1';
+$route['profile/'.$profile.'_(:any)']  = 'menu/profile/$1';
 
 $route['404_override'] = 'menu/notfound';
 $route['translate_uri_dashes'] = FALSE;
