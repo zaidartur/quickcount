@@ -4,11 +4,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Menu extends CI_Controller {
 
 	private $_admin  =  'admin';
+	private $_calon  =  'calon';
 
 	public function __construct()
 	{
 		parent::__construct();
 		$this->load->helper('security');
+		$this->load->model('m_calon', 'calon');
 	}
 
 	public function index()
@@ -38,8 +40,9 @@ class Menu extends CI_Controller {
 		//decrypt
 		$admin_id 	= decrypt_url($id);
 
-		$data['admin']  = $this->db->get_where($this->_admin, array('id_admin' => $admin_id))->row();
 		$data['header'] = 'Pasangan Calon';
+		$data['admin']  = $this->db->get_where($this->_admin, array('id_admin' => $admin_id))->row();
+		$data['calon']  = $this->calon->getAll();
 
 		$this->load->view('header', $data);
 		$this->load->view('calon/view', $data);
