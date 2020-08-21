@@ -3,10 +3,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Menu extends CI_Controller {
 
+	private $_admin  =  'admin';
+
 	public function __construct()
 	{
 		parent::__construct();
-		//Do your magic here
+		$this->load->helper('security');
 	}
 
 	public function index()
@@ -20,7 +22,11 @@ class Menu extends CI_Controller {
 
 	public function home($id)
 	{
+		//decrypt
+		$admin_id 	= decrypt_url($id);
+
 		$data['header'] = 'Dashboard';
+		$data['admin']  = $this->db->get_where($this->_admin, array('id_admin' => $admin_id))->row();
 
 		$this->load->view('header', $data);
 		$this->load->view('dashboard/admin', $data);
@@ -29,6 +35,10 @@ class Menu extends CI_Controller {
 
 	public function calon($id)
 	{
+		//decrypt
+		$admin_id 	= decrypt_url($id);
+
+		$data['admin']  = $this->db->get_where($this->_admin, array('id_admin' => $admin_id))->row();
 		$data['header'] = 'Pasangan Calon';
 
 		$this->load->view('header', $data);
@@ -38,6 +48,10 @@ class Menu extends CI_Controller {
 
 	public function user($id)
 	{
+		//decrypt
+		$admin_id 	= decrypt_url($id);
+
+		$data['admin']  = $this->db->get_where($this->_admin, array('id_admin' => $admin_id))->row();
 		$data['header'] = 'Relawan';
 
 		$this->load->view('header', $data);
@@ -47,6 +61,10 @@ class Menu extends CI_Controller {
 
 	public function tps($id)
 	{
+		//decrypt
+		$admin_id 	= decrypt_url($id);
+
+		$data['admin']  = $this->db->get_where($this->_admin, array('id_admin' => $admin_id))->row();
 		$data['header'] = 'Laporan TPS';
 
 		$this->load->view('header', $data);
@@ -56,6 +74,10 @@ class Menu extends CI_Controller {
 
 	public function laporan($id)
 	{
+		//decrypt
+		$admin_id 	= decrypt_url($id);
+
+		$data['admin']  = $this->db->get_where($this->_admin, array('id_admin' => $admin_id))->row();
 		$data['header'] = 'Laporan Real';
 
 		$this->load->view('header', $data);
