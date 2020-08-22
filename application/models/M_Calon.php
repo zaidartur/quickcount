@@ -8,7 +8,21 @@ class M_Calon extends CI_Model {
 
 	public function getAll()
 	{
+		$this->db->order_by('no_urut_calon', 'asc');
 		return $this->db->get($this->_calon)->result();
+	}
+
+	public function getById($calon)
+	{
+		$this->db->where('id_calon', $calon);
+		return $this->db->get($this->_calon)->row();
+	}
+
+	public function voting()
+	{
+		$this->db->join($this->_calon.' b', 'a.calon_id = b.id_calon', 'left');
+		$this->db->order_by('b.no_urut_calon', 'asc');
+		return $this->db->get($this->_live.' a')->result();
 	}
 
 	public function created($id)
@@ -35,6 +49,7 @@ class M_Calon extends CI_Model {
 			'no_urut_calon'		=> $this->input->post('no_urut'),
 			'calon_datetime'	=> date('Y-m-d H:i:s'),
 			'calon_who_create'	=> $id_admin,
+			'color_badge'		=> $this->input->post('clr'),
 		);
 
 		$data2 = array(
@@ -47,6 +62,40 @@ class M_Calon extends CI_Model {
 		$this->db->insert($this->_live, $data2);
 
 		return $insert;
+	}
+
+	public function update()
+	{
+		$calon_id = $this->input->post('calon-id');		
+		$file 	  = 'gambar';
+		$path     = './assets/images/calon/';
+
+		if($_FILES[$file]['name'] == '') {
+			$foto   = $this->input->post('old_gambar');
+		} else {
+			$foto   = $this->_uploadGambar($file, $path, $calon_id);
+		}
+
+		$data = array(
+			'nama_calon'		=> $this->input->post('nama2'),
+			'alamat_calon'		=> $this->input->post('alamat2'),
+			'email_calon'		=> $this->input->post('email2'),
+			'image_calon'		=> $foto,
+			'no_urut_calon'		=> $this->input->post('no_urut2'),
+			'color_badge'		=> $this->input->post('clr2'),	
+		);
+
+		$this->db->where('id_calon', $calon_id);
+		return $this->db->update($this->_calon, $data);
+	}
+
+	public function delete($calon)
+	{
+		$this->db->where('calon_id', $calon);
+		$this->db->delete($this->_live);
+
+		$this->db->where('id_calon', $calon);
+		return $this->db->delete($this->_calon);
 	}
 
 	public function _uploadGambar($file, $path, $name)
