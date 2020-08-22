@@ -65,7 +65,7 @@
 
     <!-- chartjs js -->
     <script src="<?php echo base_url()?>assets/js/plugins/Chart.min.js"></script>
-    <script src="<?php echo base_url()?>assets/js/pages/chart-chart-custom.js"></script>
+    <!-- <script src="<?php echo base_url()?>assets/js/pages/chart-chart-custom.js"></script> -->
 
     <!-- notification Js -->
     <script src="<?php echo base_url()?>assets/js/plugins/bootstrap-notify.min.js"></script>
@@ -74,50 +74,114 @@
     <script src="<?php echo base_url()?>assets/js/plugins/apexcharts.min.js"></script>
     <script src="<?php echo base_url()?>assets/js/pages/todo.js"></script>
 
+    <script src="<?php echo base_url()?>assets/js/plugins/jquery.bootstrap.wizard.min.js"></script>
+
+    <!-- sweet alert Js -->
+    <script src="<?php echo base_url()?>assets/js/plugins/sweetalert.min.js"></script>
+
     <script>
+
+        $(document).ready(function() {
+
+            if(localStorage.getItem('Status') == 'sukses') {
+                // notify('Data berhasil dihapus', 'Sukses');
+                swal("Poof! Data berhasil dihapus!", {icon: "success"});
+                localStorage.clear();
+            } else if(localStorage.getItem('Status') == 'verified') {
+                notify('Data berhasil disimpan', 'Sukses');
+            }
+
+            //input wizard for user
+            $('#progresswizard').bootstrapWizard({
+                withVisible: false,
+                'nextSelector': '.button-next',
+                'previousSelector': '.button-previous',
+                'firstSelector': '.button-first',
+                'lastSelector': '.button-last',
+                onTabShow: function(tab, navigation, index) {
+                    var $total = navigation.find('li').length;
+                    var $current = index + 1;
+                    var $percent = ($current / $total) * 100;
+                    $('#progresswizard .progress-bar').css({
+                        width: $percent + '%'
+                    });
+                }
+            });
+
+            //edit wizard for user
+            $('#progresswizard2').bootstrapWizard({
+                withVisible: false,
+                'nextSelector': '.button-next',
+                'previousSelector': '.button-previous',
+                'firstSelector': '.button-first',
+                'lastSelector': '.button-last',
+                onTabShow: function(tab, navigation, index) {
+                    var $total = navigation.find('li').length;
+                    var $current = index + 1;
+                    var $percent = ($current / $total) * 100;
+                    $('#progresswizard2 .progress-bar').css({
+                        width: $percent + '%'
+                    });
+                }
+            });
+
+            //chart-dashboard
+            floatchart();
+
+        });
+
+        function notify(message, title) {
+            $.notify({
+                icon: 'feather icon-check-circle',
+                title: title,
+                message: message
+            }, {
+                element: 'body',
+                type: 'success',
+                allow_dismiss: true,
+                placement: {
+                    from: 'top',
+                    align: 'right'
+                },
+                delay: 2500,
+                timer: 1000,
+                spacing: 10,
+                z_index: 999999,
+                mouse_over: false,
+                animate: {
+                    enter: 'animated bounceIn',
+                    exit: 'animated bounceOut'
+                },
+                offset: {
+                    x: 30,
+                    y: 30
+                },
+                icon_type: 'class',
+                template: '<div data-notify="container" class="col-xs-11 col-sm-3 alert alert-{0}" role="alert">' +
+                            '<button type="button" aria-hidden="true" class="close" data-notify="dismiss">×</button>' +
+                            '<span data-notify="icon"></span> ' +
+                            '<b><span data-notify="title">{1}</span></b> <br>' +
+                            '<span data-notify="message">{2}</span>' +
+                            '<div class="progress" data-notify="progressbar">' +
+                                '<div class="progress-bar progress-bar-{0}" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div>' +
+                            '</div>' +
+                            '<a href="{3}" target="{4}" data-notify="url"></a>' +
+                        '</div>'
+            });
+        };
+
+
+
         <?php if($this->session->flashdata('sukses')) { ?>
 
             $(window).on('load', function() {
-                function notify(message, title) {
-                    $.notify({
-                        icon: 'feather icon-check-circle',
-                        title: title,
-                        message: message
-                    }, {
-                        element: 'body',
-                        type: 'success',
-                        allow_dismiss: true,
-                        placement: {
-                            from: 'top',
-                            align: 'right'
-                        },
-                        delay: 2500,
-                        timer: 1000,
-                        spacing: 10,
-                        z_index: 999999,
-                        mouse_over: false,
-                        animate: {
-                            enter: 'animated bounceIn',
-                            exit: 'animated bounceOut'
-                        },
-                        offset: {
-                            x: 30,
-                            y: 30
-                        },
-                        icon_type: 'class',
-                        template: '<div data-notify="container" class="col-xs-11 col-sm-3 alert alert-{0}" role="alert">' +
-                                    '<button type="button" aria-hidden="true" class="close" data-notify="dismiss">×</button>' +
-                                    '<span data-notify="icon"></span> ' +
-                                    '<span data-notify="title">{1}</span> <br>' +
-                                    '<span data-notify="message">{2}</span>' +
-                                    '<div class="progress" data-notify="progressbar">' +
-                                        '<div class="progress-bar progress-bar-{0}" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div>' +
-                                    '</div>' +
-                                    '<a href="{3}" target="{4}" data-notify="url"></a>' +
-                                '</div>'
-                    });
-                };
                 notify('Data berhasil disimpan', 'Sukses');
+            });
+
+        <?php } else if($this->session->flashdata('update')) { ?>
+
+            $(window).on('load', function() {
+                notify('Data berhasil diupdate', 'Sukses');
             });
 
         <?php } ?>
@@ -125,208 +189,6 @@
 
         $('#user-list-table').DataTable();
         
-        // [ revenue-map ] start
-        $(function() {
-            var options = {
-                chart: {
-                    height: 200,
-                    type: 'line',
-                    toolbar: {
-                        show: false,
-                    },
-                },
-                dataLabels: {
-                    enabled: false
-                },
-                stroke: {
-                    width: 3,
-                    curve: 'smooth'
-                },
-                series: [{
-                    name: 'Sales',
-                    data: [20, 50, 30, 60, 30, 50, 40]
-                }, {
-                    name: 'Amount',
-                    data: [40, 20, 50, 15, 40, 65, 20]
-                }],
-                xaxis: {
-                    type: 'datetime',
-                    categories: ['1/11/2019', '2/11/2019', '3/11/2019', '4/11/2019', '5/11/2019', '6/11/2019', '7/11/2019'],
-                },
-                colors: ['#448aff', '#17C666'],
-                fill: {
-                    type: 'solid',
-                },
-                markers: {
-                    size: 5,
-                    colors: ['#448aff', '#17C666'],
-                    opacity: 0.9,
-                    strokeWidth: 2,
-                    hover: {
-                        size: 7,
-                    }
-                },
-                grid: {
-                    borderColor: '#e2e5e885',
-                },
-                yaxis: {
-                    min: 10,
-                    max: 70,
-                }
-            };
-            var chart = new ApexCharts(document.querySelector("#collected-chart"), options);
-            chart.render();
-        });
-        // [ revenue-map ] end
-        // [ sales-chart ] start
-        $(function() {
-            var options = {
-                chart: {
-                    height: 250,
-                    type: 'line',
-                    toolbar: {
-                        show: false,
-                    },
-                },
-                dataLabels: {
-                    enabled: false
-                },
-                stroke: {
-                    width: 2,
-                    curve: 'smooth'
-                },
-                series: [{
-                    name: 'Trial',
-                    data: [20, 50, 30, 60, 30, 50, 40]
-                }, {
-                    name: 'Bronze',
-                    data: [40, 20, 50, 15, 40, 65, 20]
-                }, {
-                    name: 'Gold',
-                    data: [64, 40, 20, 30, 20, 40, 65]
-                }, {
-                    name: 'Platinum',
-                    data: [30, 25, 40, 15, 20, 15, 30]
-                }],
-                xaxis: {
-                    type: 'datetime',
-                    categories: ['1/11/2019', '2/11/2019', '3/11/2019', '4/11/2019', '5/11/2019', '6/11/2019', '7/11/2019'],
-                },
-                colors: ['#7267EF', '#17C666', "#ffba57", "#EA4D4D"],
-                fill: {
-                    type: 'solid',
-                },
-                markers: {
-                    size: 5,
-                    colors: ['#7267EF', '#17C666', "#ffba57", "#EA4D4D"],
-                    opacity: 0.9,
-                    strokeWidth: 2,
-                    hover: {
-                        size: 7,
-                    }
-                },
-                grid: {
-                    borderColor: '#e2e5e885',
-                },
-                yaxis: {
-                    min: 10,
-                    max: 70,
-                }
-            };
-            var chart = new ApexCharts(document.querySelector("#sales-chart"), options);
-            chart.render();
-        });
-        // [ sales-chart ] end
-        // [ Transection ] start
-        $(function() {
-            var options1 = {
-                chart: {
-                    type: 'bar',
-                    height: 100,
-                    sparkline: {
-                        enabled: true
-                    }
-                },
-                colors: ["#7267EF"],
-                plotOptions: {
-                    bar: {
-                        columnWidth: '80%'
-                    }
-                },
-                series: [{
-                    data: [25, 66, 41, 89, 63, 25, 44, 12, 36, 9, 54]
-                }],
-                labels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
-                xaxis: {
-                    crosshairs: {
-                        width: 1
-                    },
-                },
-                tooltip: {
-                    fixed: {
-                        enabled: false
-                    },
-                    x: {
-                        show: false
-                    },
-                    y: {
-                        title: {
-                            formatter: function(seriesName) {
-                                return 'Amount'
-                            }
-                        }
-                    },
-                    marker: {
-                        show: false
-                    }
-                }
-            }
-            new ApexCharts(document.querySelector("#transactions1"), options1).render();
-            var options2 = {
-                chart: {
-                    type: 'bar',
-                    height: 100,
-                    sparkline: {
-                        enabled: true
-                    }
-                },
-                colors: ["#EA4D4D"],
-                plotOptions: {
-                    bar: {
-                        columnWidth: '80%'
-                    }
-                },
-                series: [{
-                    data: [25, 66, 41, 89, 63, 25, 44, 12, 36, 9, 54]
-                }],
-                labels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
-                xaxis: {
-                    crosshairs: {
-                        width: 1
-                    },
-                },
-                tooltip: {
-                    fixed: {
-                        enabled: false
-                    },
-                    x: {
-                        show: false
-                    },
-                    y: {
-                        title: {
-                            formatter: function(seriesName) {
-                                return 'Sales'
-                            }
-                        }
-                    },
-                    marker: {
-                        show: false
-                    }
-                }
-            }
-            new ApexCharts(document.querySelector("#transactions2"), options2).render();
-        });
-        // [ Transection ] end
     </script>
 
     <!-- floating button -->
@@ -446,7 +308,7 @@
     </script>
 
     <!-- custom-chart js -->
-    <script src="<?php echo base_url()?>assets/js/pages/dashboard-main.js"></script>
+    <!-- <script src="<?php echo base_url()?>assets/js/pages/dashboard-main.js"></script> -->
 
 </body>
 
