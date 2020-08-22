@@ -5,12 +5,14 @@ class Menu extends CI_Controller {
 
 	private $_admin  =  'admin';
 	private $_calon  =  'calon';
+	private $_live	 =  'live_voting';
 
 	public function __construct()
 	{
 		parent::__construct();
 		$this->load->helper('security');
 		$this->load->model('m_calon', 'calon');
+		$this->load->model('m_user', 'user');
 	}
 
 	public function index()
@@ -29,6 +31,7 @@ class Menu extends CI_Controller {
 
 		$data['header'] = 'Dashboard';
 		$data['admin']  = $this->db->get_where($this->_admin, array('id_admin' => $admin_id))->row();
+		$data['voting'] = $this->calon->voting();
 
 		$this->load->view('header', $data);
 		$this->load->view('dashboard/admin', $data);
@@ -54,8 +57,9 @@ class Menu extends CI_Controller {
 		//decrypt
 		$admin_id 	= decrypt_url($id);
 
-		$data['admin']  = $this->db->get_where($this->_admin, array('id_admin' => $admin_id))->row();
 		$data['header'] = 'Relawan';
+		$data['admin']  = $this->db->get_where($this->_admin, array('id_admin' => $admin_id))->row();
+		$data['user']	= $this->user->getAll();
 
 		$this->load->view('header', $data);
 		$this->load->view('user/view', $data);
