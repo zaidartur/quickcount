@@ -64,6 +64,12 @@ $route['auth-user']			  = 'welcome/login_user';
 
 //backend
 $route['simpan-calon/(:any)']		  = 'calon/create/$1';
+$route['simpan-user/(:any)']		  = 'user/create/$1';
+$route['update-calon/(:any)']		  = 'calon/update/$1';
+$route['update-user/(:any)']		  = 'user/update/$1';
+
+//user-page
+$route['voting/user-is_(:any)']		  = 'user/voting/$1';
 
 //menu
 $route['dashboard/'.$home.'_(:any)']   = 'menu/home/$1';
