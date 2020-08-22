@@ -24,7 +24,7 @@ function floatchart() {
     $(function() {
         var options = {
             chart: {
-                height: 350,
+                height: 500,
                 type: 'bar',
                 toolbar: {
                     show: true
