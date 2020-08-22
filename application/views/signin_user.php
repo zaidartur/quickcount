@@ -43,6 +43,7 @@
 
 </head>
 
+<body <?php if($this->session->flashdata('error')) { echo 'onload="sweet()"'; } ?>>
 <!-- [ signin-img ] start -->
 <div class="auth-wrapper align-items-stretch aut-bg-img2">
 	<div class="flex-grow-1">
@@ -71,7 +72,7 @@
     					<input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
     				</div>
     				
-    				<button class="btn btn-block btn-primary mb-0">Signin</button>
+    				<button type="submit" class="btn btn-block btn-primary mb-0">Signin</button>
                 </form>
 			</div>
 		</div>
@@ -91,7 +92,6 @@
 
 <!-- sweet alert Js -->
 <script src="<?php echo base_url()?>assets/js/plugins/sweetalert.min.js"></script>
-<script src="<?php echo base_url()?>assets/js/pages/ac-alert.js"></script>
 
 <div class="pct-customizer">
     <div href="#!" class="pct-c-btn">
@@ -145,6 +145,17 @@
         </div>
     </div>
 </div>
+
+<script>
+    function sweet() {
+        swal("Error!", "Incorrect username / password!", "error");
+    }
+
+    function user() {
+      window.location.href = '<?php echo base_url(); ?>user-login';
+    }
+</script>
+
 <script>
     // header option
     $('#pct-toggler').on('click', function() {
