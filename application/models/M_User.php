@@ -13,6 +13,12 @@ class M_User extends CI_Model {
 		return $this->db->get($this->_user)->result();
 	}
 
+	public function getOrderAll()
+	{
+		$this->db->order_by('no_tps', 'asc');
+		return $this->db->get($this->_user)->result();
+	}
+
 	public function getById($id)
 	{
 		return $this->db->get_where($this->_user, array('id_user' => $id))->row();
