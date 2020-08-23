@@ -21,7 +21,7 @@
 	-->
 
     <!-- Favicon icon -->
-    <link rel="icon" href="<?php echo base_url()?>assets/images/clock.svg" type="image/x-icon">
+    <link rel="icon" href="<?php echo base_url()?>assets/images/icon.png" type="image/x-icon">
 
     <link rel="stylesheet" href="assets/css/plugins/animate.min.css">
     <link rel="stylesheet" href="<?php echo base_url()?>assets/css/plugins/dataTables.bootstrap4.min.css">
@@ -49,7 +49,7 @@
 	<!-- [ Mobile header ] start -->
 	<div class="pc-mob-header pc-header">
 		<div class="pcm-logo">
-			<img src="<?php echo base_url()?>assets/images/logo.svg" alt="" class="logo logo-lg">
+			<img width="50px" src="<?php echo base_url()?>assets/images/icon.png" alt="" class="logo logo-lg">
 		</div>
 		<div class="pcm-toolbar">
 			<a href="#!" class="pc-head-link" id="mobile-collapse">
@@ -78,13 +78,13 @@
 
 		//greeting
 		$hour      = date('H');
-		if ($hour >= 20 && $hour <= 3) {
+		if ($hour >= 20 && $hour < 3) {
 		    $greetings = "Selamat Malam";
-		} elseif ($hour > 17) {
+		} elseif ($hour >= 17) {
 		   $greetings = "Selamat Sore";
 		} elseif ($hour >= 12) {
 		    $greetings = "Selamat Siang";
-		} elseif ($hour > 3 && $hour < 12) {
+		} elseif ($hour >= 3 && $hour < 12) {
 		   $greetings = "Selamat Pagi";
 		}
 		// echo $greetings;
@@ -93,10 +93,10 @@
 	<nav class="pc-sidebar ">
 		<div class="navbar-wrapper">
 			<div class="m-header">
-				<a href="<?php echo base_url()?>" class="b-brand">
+				<a href="<?php echo base_url()?>dashboard/<?php echo md5('home').'_'.$user?>" class="b-brand">
 					<!-- ========   change your logo hear   ============ -->
-					<img src="<?php echo base_url()?>assets/images/logo.svg" alt="" class="logo logo-lg">
-					<img src="<?php echo base_url()?>assets/images/logo-sm.svg" alt="" class="logo logo-sm">
+					<img width="140px" src="<?php echo base_url()?>assets/images/display.png" alt="" class="logo logo-lg">
+					<!-- <img src="<?php echo base_url()?>assets/images/logo-sm.svg" alt="" class="logo logo-sm"> -->
 				</a>
 			</div>
 			<div class="navbar-content">
@@ -178,7 +178,7 @@
 							</a>
 							<a href="#!" class="dropdown-item">
 								<i data-feather="power"></i>
-								<span>Logout</span>
+								<span>Logout <?=$hour?></span>
 							</a>
 						</div>
 					</li>
