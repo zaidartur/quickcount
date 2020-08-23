@@ -27,6 +27,21 @@
     <link rel="stylesheet" href="<?=base_url()?>assets/css/customizer.css">
 
 </head>
+
+<?php 
+	//greeting
+	$hour      = date('H');
+	if ($hour >= 20 && $hour <= 3) {
+	    $greetings = "Selamat Malam";
+	} elseif ($hour > 17) {
+	   $greetings = "Selamat Sore";
+	} elseif ($hour >= 12) {
+	    $greetings = "Selamat Siang";
+	} elseif ($hour > 3 && $hour < 12) {
+	   $greetings = "Selamat Pagi";
+	}
+	// echo $greetings;
+?>
 <body class="pc-horizontal">
 	<div class="container">
 		<!-- [ Pre-loader ] start -->
@@ -76,13 +91,13 @@
 								<a class="pc-head-link dropdown-toggle arrow-none mr-0" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
 									<img src="<?=base_url()?>assets/images/user/avatar-2.jpg" alt="user-image" class="user-avtar">
 									<span>
-										<span class="user-name"><?=$user->nama_user?></span>
+										<span class="user-name"><?=$greetings.', '.$user->nama_user?></span>
 										<span class="user-desc"><?=$user->email_user?></span>
 									</span>
 								</a>
 								<div class="dropdown-menu dropdown-menu-right pc-h-dropdown">
 									<div class=" dropdown-header">
-										<h6 class="text-overflow m-0">Welcome !</h6>
+										<h6 class="text-overflow m-0"><?=$greetings?></h6>
 									</div>
 									<a href="#!" class="dropdown-item">
 										<i data-feather="user"></i>
