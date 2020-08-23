@@ -71,8 +71,9 @@ class Menu extends CI_Controller {
 		//decrypt
 		$admin_id 	= decrypt_url($id);
 
-		$data['admin']  = $this->db->get_where($this->_admin, array('id_admin' => $admin_id))->row();
 		$data['header'] = 'Laporan TPS';
+		$data['admin']  = $this->db->get_where($this->_admin, array('id_admin' => $admin_id))->row();
+		$data['tps']	= $this->user->getOrderAll();
 
 		$this->load->view('header', $data);
 		$this->load->view('laporan/lap_tps_view', $data);
