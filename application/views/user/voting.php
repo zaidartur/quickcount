@@ -15,7 +15,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
     <!-- Favicon icon -->
-    <link rel="icon" href="<?=base_url()?>assets/images/clock.svg" type="image/x-icon">
+    <link rel="icon" href="<?=base_url()?>assets/images/icon.png" type="image/x-icon">
 
     <!-- font css -->
     <link rel="stylesheet" href="<?=base_url()?>assets/fonts/font-awsome-pro/css/pro.min.css">
@@ -31,13 +31,13 @@
 <?php 
 	//greeting
 	$hour      = date('H');
-	if ($hour >= 20 && $hour <= 3) {
+	if ($hour >= 20 && $hour < 3) {
 	    $greetings = "Selamat Malam";
-	} elseif ($hour > 17) {
+	} elseif ($hour >= 17) {
 	   $greetings = "Selamat Sore";
 	} elseif ($hour >= 12) {
 	    $greetings = "Selamat Siang";
-	} elseif ($hour > 3 && $hour < 12) {
+	} elseif ($hour >= 3 && $hour < 12) {
 	   $greetings = "Selamat Pagi";
 	}
 	// echo $greetings;
@@ -54,7 +54,7 @@
 		<!-- [ Mobile header ] start -->
 		<div class="pc-mob-header pc-header">
 			<div class="pcm-logo">
-				<img src="<?=base_url()?>assets/images/clock.svg" alt="" class="logo logo-lg">
+				<img width="50px" src="<?=base_url()?>assets/images/icon.png" alt="" class="logo logo-lg">
 			</div>
 			<div class="pcm-toolbar">
 				<!-- <a href="#!" class="pc-head-link" id="headerdrp-collapse">
@@ -73,7 +73,7 @@
 					<div class="m-header">
 						<a href="#" class="b-brand">
 							<!-- ========   change your logo hear   ============ -->
-							<img src="<?=base_url()?>assets/images/clock.svg" alt="" class="logo logo-lg">
+							<img width="50px" src="<?=base_url()?>assets/images/icon.png" alt="" class="logo logo-lg">
 						</a>
 					</div>
 					<div class="mr-auto pc-mob-drp">
