@@ -75,6 +75,19 @@
 		$user = encrypt_url($admin->id_admin); 
 		if ($admin->level == 1) { $level = 'Administrator'; } else { $level = 'Calon'; }
 		// print_r($admin);
+
+		//greeting
+		$hour      = date('H');
+		if ($hour >= 20 && $hour <= 3) {
+		    $greetings = "Selamat Malam";
+		} elseif ($hour > 17) {
+		   $greetings = "Selamat Sore";
+		} elseif ($hour >= 12) {
+		    $greetings = "Selamat Siang";
+		} elseif ($hour > 3 && $hour < 12) {
+		   $greetings = "Selamat Pagi";
+		}
+		// echo $greetings;
 	?>
 	<!-- [ navigation menu ] start -->
 	<nav class="pc-sidebar ">
@@ -157,7 +170,7 @@
 						</a>
 						<div class="dropdown-menu dropdown-menu-right pc-h-dropdown">
 							<div class=" dropdown-header">
-								<h6 class="text-overflow m-0">Welcome !</h6>
+								<h6 class="text-overflow m-0"><?=$greetings?>, <?=$admin->nama_admin?></h6>
 							</div>
 							<a href="#!" class="dropdown-item">
 								<i data-feather="user"></i>
