@@ -25,11 +25,11 @@
                 ?>
                     <div class="col-lg-4 col-md-6">
                         <div class="card user-card user-card-1 mt-4">
-                            <div class="card-header border-0 p-2 pb-0">
+                            <!-- <div class="card-header border-0 p-2 pb-0">
                                 <div class="cover-img-block" style="position: center; background-repeat: no-repeat; background-size: cover; width: 500px; height: 250px">
                                     <img src="<?=base_url()?>assets/images/calon/<?=$a->image_calon?>" alt="" class="img-responsive" style="position: block; background-repeat: no-repeat; background-size: cover; width: 490px; height: 250px;">
                                 </div>
-                            </div>
+                            </div> -->
                             <div class="card-body pt-0">
                                 <div class="user-about-block text-center">
                                     <div class="row align-items-end">
