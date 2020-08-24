@@ -130,14 +130,14 @@
 
         });
 
-        function notify(message, title) {
+        function notify(message, title, icon, type) {
             $.notify({
-                icon: 'feather icon-check-circle',
+                icon: icon,
                 title: title,
                 message: message
             }, {
                 element: 'body',
-                type: 'success',
+                type: type,
                 allow_dismiss: true,
                 placement: {
                     from: 'top',
@@ -175,13 +175,19 @@
         <?php if($this->session->flashdata('sukses')) { ?>
 
             $(window).on('load', function() {
-                notify('Data berhasil disimpan', 'Sukses');
+                notify('Data berhasil disimpan', 'Sukses', 'feather icon-check-circle', 'success');
             });
 
         <?php } else if($this->session->flashdata('update')) { ?>
 
             $(window).on('load', function() {
-                notify('Data berhasil diupdate', 'Sukses');
+                notify('Data berhasil diupdate', 'Sukses', 'feather icon-check-circle', 'success');
+            });
+
+        <?php } else if($this->session->flashdata('error')) { ?>
+
+            $(window).on('load', function() {
+                notify('Terjadi kesalahan', 'Error', 'feather icon-x-circle', 'danger');
             });
 
         <?php } ?>
