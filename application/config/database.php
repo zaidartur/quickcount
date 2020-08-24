@@ -76,9 +76,13 @@ $query_builder = TRUE;
 $db['default'] = array(
 	'dsn'	=> '',
 	'hostname' => 'localhost',
-	'username' => 'u4042012_quickcount',
-	'password' => 'quickcount',
-	'database' => 'u4042012_quickcount',
+	'username' => 'root',
+	'password' => '',
+	'database' => 'quickcount',
+	//github-linked
+	// 'username' => 'u4042012_quickcount',
+	// 'password' => 'quickcount',
+	// 'database' => 'u4042012_quickcount',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
