@@ -39,7 +39,17 @@
 
                             <?php 
                                 foreach ($suara as $a => $b) { 
-                                    $jml_suara = intval($b->jumlah_suara) / array_sum($vote) * 100;
+                                    if (array_sum($vote) == 0) {
+                                        $jml_suara = 0;
+                                    } else {
+                                        if (!empty($b->jumlah_suara) || $b->jumlah_suara != 0 || $b->jumlah_suara != '0') {
+                                            $jml_suara = intval($b->jumlah_suara) / array_sum($vote) * 100;    
+                                        } else {
+                                            $jml_suara = 0;
+                                        }    
+                                    }
+                                    
+                                    
                                     $pr_calon  = number_format((float)$jml_suara, 2, '.', '');
                                     // echo $b->jumlah_suara.'/'.array_sum($vote);
                             ?>
