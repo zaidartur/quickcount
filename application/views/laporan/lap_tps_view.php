@@ -56,10 +56,10 @@
 
                             <div class="card-progress p-t-10">
                                 <div class="row ">
-                                    <div class="col-sm-2 text-right ">
+                                    <div class="col-sm-12 text-left ">
                                         <label class="text-muted "><?=$b->nama_calon?></label>
                                     </div>
-                                    <div class="col-sm-8">
+                                    <div class="col-sm-10">
                                         <div class="progress">
                                             <div class="progress-bar" style="width:<?=$pr_calon?>%; background-color: <?=$b->color_badge?>"></div>
                                         </div>
