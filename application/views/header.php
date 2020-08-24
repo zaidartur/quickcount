@@ -176,9 +176,9 @@
 								<i data-feather="user"></i>
 								<span>Profile</span>
 							</a>
-							<a href="#!" class="dropdown-item">
+							<a href="javascript:void(0)" class="dropdown-item" onclick="logout()">
 								<i data-feather="power"></i>
-								<span>Logout <?=$hour?></span>
+								<span>Logout</span>
 							</a>
 						</div>
 					</li>
