@@ -99,11 +99,11 @@
 									<div class=" dropdown-header">
 										<h6 class="text-overflow m-0"><?=$greetings?></h6>
 									</div>
-									<a href="#!" class="dropdown-item">
+									<!-- <a href="#!" class="dropdown-item">
 										<i data-feather="user"></i>
 										<span>My Account</span>
-									</a>
-									<a href="#!" class="dropdown-item">
+									</a> -->
+									<a href="javascript:void(0)" class="dropdown-item" onclick="logout()">
 										<i data-feather="power"></i>
 										<span>Logout</span>
 									</a>
@@ -260,6 +260,10 @@
                 }
             });		
     	}	
+
+    	function logout() {
+            window.location.href = '<?php echo base_url() ?>user-login';
+        }
     </script>
 
 </body>
