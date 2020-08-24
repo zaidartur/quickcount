@@ -19,7 +19,7 @@
 	<meta name="author" content="Phoenixcoded" /> -->
 
 	<!-- Favicon icon -->
-	<link rel="icon" href="<?php echo base_url(); ?>assets/images/clock.svg" type="image/x-icon">
+	<link rel="icon" href="<?php echo base_url(); ?>assets/images/icon.png" type="image/x-icon">
 
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/plugins/animate.min.css">
 
@@ -44,7 +44,7 @@
 				<div class="col-md-6 img-card-side">
 					<img src="<?php echo base_url(); ?>assets/images/auth-side.jpg" alt="" class="img-fluid">
 					<div class="img-card-side-content">
-						<img src="<?php echo base_url(); ?>assets/images/clock.svg" alt="" class="img-fluid">
+						<img width="100px" src="<?php echo base_url(); ?>assets/images/display.png" alt="" class="img-fluid">
 					</div>
 				</div>
 				<div class="col-md-6">
