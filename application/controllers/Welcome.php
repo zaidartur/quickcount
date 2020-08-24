@@ -6,7 +6,7 @@ class Welcome extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
-		// $this->load->helper('security');
+		$this->load->helper('security');
 	}
 
 	public function index()
