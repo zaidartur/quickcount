@@ -70,6 +70,7 @@ $route['update-user/(:any)']		  = 'user/update/$1';
 
 //user-page
 $route['voting/user-is_(:any)']		  = 'user/voting/$1';
+$route['voting/data-akhir/(:any)']	  = 'user/dataakhir/$1';
 
 //menu
 $route['dashboard/'.$home.'_(:any)']   = 'menu/home/$1';
