@@ -17,7 +17,7 @@
     <meta name="author" content="Phoenixcoded" />
 
     <!-- Favicon icon -->
-    <link rel="icon" href="assets/images/favicon.svg" type="image/x-icon">
+    <link rel="icon" href="<?php echo base_url() ?>assets/images/icon.png" type="image/x-icon">
 
     <!-- font css -->
     <link rel="stylesheet" href="<?php echo base_url() ?>assets/fonts/font-awsome-pro/css/pro.min.css">
@@ -38,7 +38,9 @@
                     <img src="<?php echo base_url() ?>assets/images/404.png" alt="" class="img-fluid">
                     <h5 class="text-muted my-4">Oops! Page not found!</h5>
                     <form action="<?php echo base_url() ?>">
-                        <button class="btn waves-effect waves-light btn-primary mb-4"><i class="feather icon-home mr-2"></i>Back to Home</button>
+                        <button class="btn waves-effect waves-light btn-primary mb-4" onclick="window.history.go(-1); return false;">
+                            <i class="feather icon-skip-back mr-2"></i>Back
+                        </button>
                     </form>
                 </div>
             </div>
