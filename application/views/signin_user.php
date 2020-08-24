@@ -19,7 +19,7 @@
 	<meta name="author" content="Phoenixcoded" /> -->
 
 	<!-- Favicon icon -->
-	<link rel="icon" href="<?php echo base_url(); ?>assets/images/clock.svg" type="image/x-icon">
+	<link rel="icon" href="<?php echo base_url(); ?>assets/images/icon.png" type="image/x-icon">
 
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/plugins/animate.min.css">
 
@@ -49,7 +49,7 @@
 	<div class="flex-grow-1">
 		<div class="h-100 d-md-flex align-items-end auth-side-img">
 			<div class="col-sm-10 auth-content w-auto">
-				<img src="<?php echo base_url(); ?>assets/images/clock.svg" alt="" class="img-fluid">
+				<img width="150px" src="<?php echo base_url(); ?>assets/images/display.png" alt="" class="img-fluid">
 				<h1 class="text-white my-4">Welcome Back!</h1>
 				<h4 class="text-white font-weight-normal">Signin to your account and let's start live voting.<br />Do not forget to carefully.</h4>
 			</div>
