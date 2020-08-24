@@ -68,6 +68,7 @@ class User extends CI_Controller {
 		echo json_encode($res);
 	}
 
+	//load page user voting
 	public function voting($id)
 	{
 		$id_user = decrypt_url($id);
@@ -114,6 +115,27 @@ class User extends CI_Controller {
 		}
 
 		echo json_encode($res);
+	}
+
+	public function dataAkhir($user)
+	{
+		$id_user = decrypt_url($user);
+		$data    = array(
+			'suara_sah'			=> $this->input->post('sah'),
+			'suara_tidak_sah'	=> $this->input->post('rusak'),
+			'suara_golput'		=> $this->input->post('kosong'),
+		);
+
+		$this->db->where('id_user', $id_user);
+		$upd = $this->db->update('user', $data);
+
+		if ($upd) {
+			$this->session->set_flashdata('sukses', 'simpan akhir sukses');
+			header('Location: '.base_url().'voting/user-is_'.$user);
+		} else {
+			$this->session->set_flashdata('error', 'simpan akhir error');
+			header('Location: '.base_url().'voting/user-is_'.$user);
+		}
 	}
 
 
