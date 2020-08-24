@@ -188,6 +188,7 @@
 										$dis = ''; 	
 									}
 								}
+								$terhitung[$c]= $angka;
 							?>
 							<div class="row text-center">
 								<div class="col">
@@ -206,6 +207,99 @@
 				</div>
 				<?php } ?>
 
+				<hr class="wid-80 b-wid-3 my-4" style="width: 100%">
+
+				<div class="col-md-12 col-xl-12">
+	                <div class="card app-design">
+	                    <div class="card-body">
+	                        <!-- <button class="btn btn-primary float-right">Completed</button> -->
+	                        <h3 class="f-w-400 text-muted">Data Akhir TPS</h3>
+	                        <div class="alert alert-info" role="alert">
+	                        	Diisi setelah penghitungan hasil suara selesai.
+	                        </div>
+	                        <div class="row">
+	                        	<div class="col-sm-4">
+	                        		<p class="text-muted"><i class="feather icon-info"></i> No TPS : <?=$user->no_tps?></p>	
+	                        	</div>
+	                        	<div class="col-sm-8">
+	                        		<p class="text-muted"><i class="feather icon-user-check"></i> Relawan : <?=$user->nama_user?></p>	
+	                        	</div>
+	                        </div>
+	                        <p class="text-muted"><i class="feather icon-map-pin"></i> Alamat TPS : <?=$user->alamat_tps?></p>
+	                        <div class="design-description d-inline-block m-r-40">
+	                            <h3 class="f-w-400" style="text-align: center;"><?=$user->dpt_tps?></h3>
+	                            <p class="text-muted" style="text-align: center;">DPT</p>
+	                        </div>
+	                        <div class="design-description d-inline-block">
+	                            <h3 class="f-w-400" style="text-align: center;"><?php echo array_sum($terhitung); ?></h3>
+	                            <p class="text-muted" style="text-align: center;">Terhitung</p>
+	                        </div>
+	                        <div class="team-box p-b-20">
+	                           
+	                        </div>
+	                        <div class="card text-white bg-success">
+	                        	<div class="card-header">
+	                        		<i class="fas fa-vote-yea"></i> Suara Masuk
+	                        	</div>	           
+	                        	<div class="card-body">
+	                        		<div class="col-sm-12">
+	                        			<?php
+	                        				$suara2 = $this->db->get_where($tps, array('user_id' => $user->id_user))->result();
+	                        				foreach ($suara2 as $key => $value) {
+	                        					# code...
+	                        				}
+
+	                        				//get-data-akhir
+	                        				if($user->suara_sah == null || empty($user->suara_sah) || $user->suara_sah == '0') {
+	                        					$sah = 0;
+	                        				} else {
+	                        					$sah = $user->suara_sah;
+	                        				}
+
+	                        				if($user->suara_tidak_sah == null || empty($user->suara_tidak_sah) || $user->suara_tidak_sah == '0') {
+	                        					$rusak = 0;
+	                        				} else {
+	                        					$rusak = $user->suara_tidak_sah;
+	                        				}
+
+	                        				if($user->suara_golput == null || empty($user->suara_golput) || $user->suara_golput == '0') {
+	                        					$kosong = 0;
+	                        				} else {
+	                        					$kosong = $user->suara_golput;
+	                        				}
+	                        			?>
+	                        			<form action="<?=base_url()?>voting/data-akhir/<?=encrypt_url($user->id_user)?>" method="post">
+		                        			<div class="row">
+				                        		<div class="col-sm-3">
+				                        			<label for="sah"><i class="fas fa-check-circle"></i> Suara Sah</label>
+				                                    <input type="number" class="form-control" id="sah" name="sah" placeholder="Suara Sah" value="<?=$sah?>">
+				                                    &nbsp;
+				                                </div>
+				                                <div class="col-sm-3">
+				                                	<label for="rusak"><i class="fas fa-times-circle"></i> Suara Rusak</label>
+				                                    <input type="number" class="form-control" id="rusak" name="rusak" placeholder="Suara Rusak" value="<?=$rusak?>">
+				                                    &nbsp;
+				                                </div>
+				                                <div class="col-sm-3">
+				                                	<label for="kosong"><i class="fas fa-times-circle"></i> Suara Kosong</label>
+				                                    <input type="number" class="form-control" id="kosong" name="kosong" placeholder="Suara Kosong" value="<?=$kosong?>">
+				                                    &nbsp;
+				                                </div>
+				                                
+				                                <div class="col-sm-3" style="vertical-align: middle;">
+				                                	<h4>&nbsp;</h4>
+				                                	<button type="submit" class="btn btn-md btn-primary col-sm-3" title="Simpan">
+				                                		<i class="feather icon-save"></i>
+				                                	</button>
+				                                </div>
+			                            	</div>
+			                            </form>
+			                        </div>
+	                        	</div>                 
+	                        </div>
+	                    </div>
+	                </div>
+	            </div>
             </div>
             <!-- [ Main Content ] end -->
         </div>
@@ -222,9 +316,74 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
     <script src="<?=base_url()?>assets/js/plugins/clipboard.min.js"></script>
     <script src="<?=base_url()?>assets/js/uikit.min.js"></script>
+    <!-- notification Js -->
+    <script src="<?php echo base_url()?>assets/js/plugins/bootstrap-notify.min.js"></script>
 
 
     <script>
+
+    	function notify(message, title, icon, type) {
+            $.notify({
+                icon: icon,
+                title: title,
+                message: message
+            }, {
+                element: 'body',
+                type: type,
+                allow_dismiss: true,
+                placement: {
+                    from: 'top',
+                    align: 'right'
+                },
+                delay: 2500,
+                timer: 1000,
+                spacing: 10,
+                z_index: 999999,
+                mouse_over: false,
+                animate: {
+                    enter: 'animated bounceIn',
+                    exit: 'animated bounceOut'
+                },
+                offset: {
+                    x: 30,
+                    y: 30
+                },
+                icon_type: 'class',
+                template: '<div data-notify="container" class="col-xs-11 col-sm-3 alert alert-{0}" role="alert">' +
+                            '<button type="button" aria-hidden="true" class="close" data-notify="dismiss">×</button>' +
+                            '<span data-notify="icon"></span> ' +
+                            '<b><span data-notify="title">{1}</span></b> <br>' +
+                            '<span data-notify="message">{2}</span>' +
+                            '<div class="progress" data-notify="progressbar">' +
+                                '<div class="progress-bar progress-bar-{0}" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div>' +
+                            '</div>' +
+                            '<a href="{3}" target="{4}" data-notify="url"></a>' +
+                        '</div>'
+            });
+        };
+
+
+
+        <?php if($this->session->flashdata('sukses')) { ?>
+
+            $(window).on('load', function() {
+                notify('Data berhasil disimpan', 'Sukses', 'feather icon-check-circle', 'success');
+            });
+
+        <?php } else if($this->session->flashdata('update')) { ?>
+
+            $(window).on('load', function() {
+                notify('Data berhasil diupdate', 'Sukses', 'feather icon-check-circle', 'success');
+            });
+
+        <?php } else if($this->session->flashdata('error')) { ?>
+
+            $(window).on('load', function() {
+                notify('Terjadi kesalahan', 'Error', 'feather icon-x-circle', 'danger');
+            });
+
+        <?php } ?>
+
     	function kurang(id) {
     		$.ajax({
                 url: '<?php echo base_url() ?>user/kurang/<?=$usr?>',
