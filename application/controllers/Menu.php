@@ -85,8 +85,10 @@ class Menu extends CI_Controller {
 		//decrypt
 		$admin_id 	= decrypt_url($id);
 
-		$data['admin']  = $this->db->get_where($this->_admin, array('id_admin' => $admin_id))->row();
 		$data['header'] = 'Laporan Real';
+		$data['admin']  = $this->db->get_where($this->_admin, array('id_admin' => $admin_id))->row();
+		$data['tps']	= $this->user->getAll();
+		$data['data_akhir'] = $this->user->isDataReal();
 
 		$this->load->view('header', $data);
 		$this->load->view('laporan/lap_real_view', $data);
