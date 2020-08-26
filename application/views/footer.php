@@ -194,6 +194,7 @@
 
 
         $('#user-list-table').DataTable();
+        $('#data-akhir').DataTable();
 
         function logout() {
             window.location.href = '<?php echo base_url() ?>';
