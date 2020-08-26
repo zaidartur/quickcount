@@ -13,13 +13,25 @@
                                     $dpt[$t]    = intval($p->dpt_tps);
                                 }
 
-                                foreach ($data_akhir as $d => $a) {
-                                    $sah2[$d]    = intval($a->suara_sah);
-                                    $rusak2[$d]  = intval($a->suara_tidak_sah);
-                                    $kosong2[$d] = intval($a->suara_golput);
-                                    $dpt2[$d]    = intval($a->dpt_tps);
+                                if (!empty($data_akhir)) {
+                                    foreach ($data_akhir as $d => $a) {
+                                        $sah2[$d]    = intval($a->suara_sah);
+                                        $rusak2[$d]  = intval($a->suara_tidak_sah);
+                                        $kosong2[$d] = intval($a->suara_golput);
+                                        $dpt2[$d]    = intval($a->dpt_tps);
+                                    }
+                                    $sah    = array_sum($sah2);
+                                    $rusak  = array_sum($rusak2);
+                                    $kosong = array_sum($kosong2);
+                                    $dpts    = array_sum($dpt2);
+                                    $suara_masuk     = $sah + $rusak + $kosong;    
+                                } else {
+                                    $sah    = 0;
+                                    $rusak  = 0;
+                                    $kosong = 0;
+                                    $dpts    = 0;
+                                    $suara_masuk = 0;
                                 }
-                                $suara_masuk     = array_sum($sah2) + array_sum($rusak2) + array_sum($kosong2);
                             ?>
                             <div class="row">
                                 <div class="col-md-2 col-sm-2" style="text-align: center;">
@@ -38,21 +50,21 @@
                                     <div class="row">
                                         <div class="col-md-4 col-sm-4">
                                             <p class="text-muted">Suara Sah</p>
-                                            <h3 class="f-w-400"><?php echo array_sum($sah2); ?></h3>      
+                                            <h3 class="f-w-400"><?=$sah?></h3>      
                                         </div>
                                         <div class="col-md-4 col-sm-4">
                                             <p class="text-muted">Suara Tidak Sah / Rusak</p>
-                                            <h3 class="f-w-400"><?php echo array_sum($rusak2); ?></h3>      
+                                            <h3 class="f-w-400"><?=$rusak?></h3>      
                                         </div>
                                         <div class="col-md-4 col-sm-4">
                                             <p class="text-muted">Suara Kosong / Golput</p>
-                                            <h3 class="f-w-400"><?php echo array_sum($kosong2); ?></h3>      
+                                            <h3 class="f-w-400"><?=$kosong?></h3>      
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-2 col-sm-2" style="text-align: center;">
                                     <p class="text-muted">Tidak Ikut Memilih</p>
-                                    <h3 class="f-w-400"><?php echo array_sum($dpt2) - $suara_masuk; ?></h3>
+                                    <h3 class="f-w-400"><?php echo $dpts - $suara_masuk; ?></h3>
                                 </div>
                             </div>
                         </div>
@@ -103,11 +115,11 @@
                                         <tr>
                                             <th>#</th>
                                             <th colspan="3">Jumlah</th>
-                                            <th><?php echo array_sum($dpt2); ?></th>
+                                            <th><?=$dpts?></th>
                                             <th><?php echo $suara_masuk; ?></th>
-                                            <th class="bg-info"><?php echo array_sum($sah2); ?></th>
-                                            <th class="bg-info"><?php echo array_sum($rusak2); ?></th>
-                                            <th class="bg-info"><?php echo array_sum($kosong2); ?></th>
+                                            <th class="bg-info"><?=$sah?></th>
+                                            <th class="bg-info"><?=$rusak?></th>
+                                            <th class="bg-info"><?=$kosong?></th>
                                         </tr>
                                     </tfoot>
                                 </table>
