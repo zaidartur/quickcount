@@ -163,6 +163,18 @@ class M_user extends CI_Model {
 		$this->db->where(array('user_id' => $user, 'calon_id' => $calon));
 		return $this->db->update($this->_tps, $data);
 	}
+
+	public function isDataReal()
+	{
+		$data = array(
+			'suara_sah !='			=> null,
+			'suara_tidak_sah !='	=> null,
+			'suara_golput !='		=> null,
+		);
+		$this->db->where($data);
+		$this->db->order_by('no_tps', 'asc');
+		return $this->db->get($this->_user)->result();
+	}
 	
 
 }
