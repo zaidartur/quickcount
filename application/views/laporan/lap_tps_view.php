@@ -7,7 +7,12 @@
                         <div class="card-header">
                             <h5>TPS <?=$p->no_tps?> ( <i class="feather icon-user-check"></i> <?=$p->nama_user?> )</h5>
                             <i class="feather icon-map-pin"></i> <?=$p->alamat_tps?>
-                            <div class="card-header-left">
+                            <div class="card-header-right">
+                                <?php
+                                    if ($p->suara_sah != null && $p->suara_tidak_sah != null && $p->suara_golput != null) {
+                                        echo '<span class="badge badge-warning"><i class="feather icon-check-circle"></i> Selesai</span>';
+                                    }
+                                ?>
                             </div>
                             <div class="card-header-right">
                                 <i class="icofont icofont-spinner-alt-5"></i>
