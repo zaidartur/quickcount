@@ -31,13 +31,13 @@
 <?php 
 	//greeting
 	$hour      = date('H');
-	if ($hour >= 20 && $hour < 3) {
+	if ($hour >= 20 || $hour >= 00 && $hour < 03) {
 	    $greetings = "Selamat Malam";
-	} elseif ($hour >= 17) {
+	} elseif ($hour >= 17 && $hour < 20) {
 	   $greetings = "Selamat Sore";
-	} elseif ($hour >= 12) {
+	} elseif ($hour >= 12 && $hour < 17) {
 	    $greetings = "Selamat Siang";
-	} elseif ($hour >= 3 && $hour < 12) {
+	} elseif ($hour >= 03 && $hour < 12) {
 	   $greetings = "Selamat Pagi";
 	}
 	// echo $greetings;
