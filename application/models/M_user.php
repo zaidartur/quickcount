@@ -73,8 +73,24 @@ class M_user extends CI_Model {
 
 	public function delete($user)
 	{
+		//re-sum data total vote [start]
+		$tps  = $this->db->get_where($this->_tps, array('user_id' => $user))->result();	
+
+		foreach ($tps as $key => $value) {
+			$live  = $this->db->get_where($this->_live, array('calon_id' => $value->calon_id))->row();		
+			$hasil = intval($live->vote) - intval($value->jumlah_suara);
+			$data  = array('vote' => $hasil);
+
+			$this->db->where('calon_id', $value->calon_id);
+			$this->db->update($this->_live, $data);
+		}
+		//re-sum data total vote [end]
+
+		$this->db->where('user_id', $user);
+		$this->db->delete($this->_tps);
+
 		$this->db->where('id_user', $user);
-		return $this->db->delete($this->_user);
+		return $this->db->delete($this->_user);		
 	}
 
 	public function _uploadGambar($file, $path, $name)
@@ -162,6 +178,27 @@ class M_user extends CI_Model {
 
 		$this->db->where(array('user_id' => $user, 'calon_id' => $calon));
 		return $this->db->update($this->_tps, $data);
+	}
+
+	public function cekRecord($user)
+	{
+		$calon  = $this->db->get($this->_calon)->result();
+		$tps 	= $this->db->get_where($this->_tps, array('user_id' => $user))->result();
+		
+		//check every record in 'hasil_tps' while signin
+		foreach ($calon as $a => $b) {
+			$check = $this->db->get_where($this->_tps, array('user_id' => $user, 'calon_id' => $b->id_calon))->row();
+			if (empty($check)) {
+				$id    = uniqid();
+				$obj   = array(
+					'id'			=> $id,
+					'user_id'		=> $user,
+					'calon_id'		=> $b->id_calon,
+					'jumlah_suara'	=> 0,
+				);
+				$this->db->insert($this->_tps, $obj);
+			}
+		}
 	}
 
 	public function isDataReal()
