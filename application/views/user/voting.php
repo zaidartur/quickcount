@@ -145,9 +145,20 @@
             ?>
 
             <!-- [ Main Content ] start -->
-            <div class="row">
-                
-                <?php foreach ($calon as $c => $l) { ?>
+            <div class="row justify-content-center">
+                <div class="col-xl-12 col-md-12 alert alert-info" id="alert">
+                	Jumlah suara yang terhitung sama dengan jumlah DPT. Silhakan menunggu penghitungan data akhir di TPS.
+                </div>
+                <?php 
+                	foreach ($calon as $c => $l) { 
+                		$suara2 = $this->db->get_where($tps, array('user_id' => $user->id_user))->result();
+        				foreach ($suara2 as $key => $value) {
+        					$obj[$key] = intval($value->jumlah_suara);
+        				}
+        				 //if total 'voting' same as or over total 'dpt'
+        				if (array_sum($obj) < $user->dpt_tps) { $stop = ''; $al = 'nonactive'; } else { $stop = 'disabled'; $al = 'active'; }
+                ?>
+                <input type="hidden" name="alert2" id="alert2" value="<?=$al?>">
                 <div class="col-xl-4 col-md-6">
 	            	<div class="card user-card user-card-1">
 						<div class="card-header border-0 p-2 pb-0">
@@ -199,7 +210,7 @@
 									<p class="mb-0">Suara</p>
 								</div>
 								<div class="col">
-									<button type="button" class="btn btn-lg btn-success" onclick="tambah('<?=encrypt_url($l->id_calon)?>')"><i class="feather icon-plus"></i></button>
+									<button type="button" class="btn btn-lg btn-success" onclick="tambah('<?=encrypt_url($l->id_calon)?>')" <?=$stop?>><i class="feather icon-plus"></i></button>
 								</div>
 							</div>
 						</div>
@@ -244,11 +255,6 @@
 	                        	<div class="card-body">
 	                        		<div class="col-sm-12">
 	                        			<?php
-	                        				$suara2 = $this->db->get_where($tps, array('user_id' => $user->id_user))->result();
-	                        				foreach ($suara2 as $key => $value) {
-	                        					# code...
-	                        				}
-
 	                        				//get-data-akhir
 	                        				if($user->suara_sah == null || empty($user->suara_sah) || $user->suara_sah == '0') {
 	                        					$sah = 0;
@@ -321,6 +327,16 @@
 
 
     <script>
+
+    	$(window).on('load', function() {
+    		var check = $('#alert2').val();
+    		var disp  = document.getElementById('alert');
+            if (check == 'active') {
+            	disp.style.display = 'block';
+            } else if (check == 'nonactive') {
+            	disp.style.display = 'none';
+            }
+        });
 
     	function notify(message, title, icon, type) {
             $.notify({
