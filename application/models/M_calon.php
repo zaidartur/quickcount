@@ -5,6 +5,7 @@ class M_calon extends CI_Model {
 
 	private $_calon = 'calon';
 	private $_live  = 'live_voting';
+	private $_tps   = 'hasil_tps';
 
 	public function getAll()
 	{
@@ -91,6 +92,9 @@ class M_calon extends CI_Model {
 
 	public function delete($calon)
 	{
+		$this->db->where('calon_id', $calon);
+		$this->db->delete($this->_tps);
+
 		$this->db->where('calon_id', $calon);
 		$this->db->delete($this->_live);
 
