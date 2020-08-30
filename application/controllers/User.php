@@ -74,9 +74,13 @@ class User extends CI_Controller {
 		$id_user = decrypt_url($id);
 
 		$data['user']  = $this->user->getById($id_user);
-		// $data['calon'] = $this->db->get('calon')->result();
+		// $data['calon'] = '';
 		$data['calon'] = $this->calon->getAll();
 		$data['tps']   = 'hasil_tps';
+
+		//creating record for 'calon' if empty
+		$this->user->cekRecord($id_user);
+
 		$this->load->view('user/voting', $data);
 	}
 
