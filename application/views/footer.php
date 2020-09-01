@@ -126,7 +126,7 @@
             });
 
             //chart-dashboard
-            floatchart();
+            firstchart();
 
         });
 
