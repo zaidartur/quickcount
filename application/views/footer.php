@@ -199,6 +199,45 @@
         function logout() {
             window.location.href = '<?php echo base_url() ?>';
         }
+
+        $('#toggle_fullscreen').on('click', function(){
+            var chart = document.getElementById('voting-chart')
+            // if already full screen; exit
+            // else go fullscreen
+            if (
+                document.fullscreenElement ||
+                document.webkitFullscreenElement ||
+                document.mozFullScreenElement ||
+                document.msFullscreenElement
+            ) {
+                $('#ikon').removeClass('feather icon-minimize-2');
+                $('#ikon').addClass('feather icon-maximize-2');
+                $('#toggle_fullscreen').attr('title', 'Full Screen');
+                if (document.exitFullscreen) {
+                  document.exitFullscreen();
+                } else if (document.mozCancelFullScreen) {
+                  document.mozCancelFullScreen();
+                } else if (document.webkitExitFullscreen) {
+                  document.webkitExitFullscreen();
+                } else if (document.msExitFullscreen) {
+                  document.msExitFullscreen();
+                }
+            } else {
+                $('#ikon').removeClass('feather icon-maximize-2');
+                $('#ikon').addClass('feather icon-minimize-2');
+                $('#toggle_fullscreen').attr('title', 'Exit Full Screen');
+                element = $('#screen').get(0);
+                if (element.requestFullscreen) {
+                  element.requestFullscreen();
+                } else if (element.mozRequestFullScreen) {
+                  element.mozRequestFullScreen();
+                } else if (element.webkitRequestFullscreen) {
+                  element.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
+                } else if (element.msRequestFullscreen) {
+                  element.msRequestFullscreen();
+                }
+            }
+        });
         
     </script>
 
