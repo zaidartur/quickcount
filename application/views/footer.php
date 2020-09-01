@@ -360,6 +360,30 @@
     <!-- custom-chart js -->
     <!-- <script src="<?php echo base_url()?>assets/js/pages/dashboard-main.js"></script> -->
 
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-app.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+         https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-analytics.js"></script>
+
+    <script>
+      // Your web app's Firebase configuration
+      var firebaseConfig = {
+        apiKey: "AIzaSyDHfhZRMC_hq7tmyJRooH80FzxZ5cHRlNI",
+        authDomain: "qc154-9880a.firebaseapp.com",
+        databaseURL: "https://qc154-9880a.firebaseio.com",
+        projectId: "qc154-9880a",
+        storageBucket: "qc154-9880a.appspot.com",
+        messagingSenderId: "617523839406",
+        appId: "1:617523839406:web:c19a73004573551512083f",
+        measurementId: "G-9DHM457YS0"
+      };
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+      firebase.analytics();
+    </script>
+
 </body>
 
 </html>
