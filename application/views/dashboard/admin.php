@@ -1,45 +1,50 @@
             <body onload="AutoRefresh(5000);">
             <!-- [ Main Content ] start -->
-            <div class="row">
-                
-                <div class="col-md-12">
-                    <div class="row justify-content-center">
-                        <!-- visitors  start -->
-                        <?php 
-                            foreach ($voting as $key => $value) { 
-                                $width = 90 / count($voting);
-                        ?>
+            <div id="screen" style="padding: 25px; background-color: #F0F2F8">
+                <div class="row">
+                    
+                    <div class="col-md-12">
+                        <div class="row justify-content-center">
+                            <!-- visitors  start -->
+                            <?php 
+                                foreach ($voting as $key => $value) { 
+                                    $width = 90 / count($voting);
+                            ?>
 
-                        <div class="" style="width: <?=$width?>%">
-                            <div class="card text-white widget-visitor-card" style="background-color: <?=$value->color_badge?>">
-                                <div class="card-body text-center">
-                                    <h2 class="text-white"><?=$value->nama_calon?></h2>
-                                    <h6 class="text-white"><?='No Urut '.$value->no_urut_calon?></h6>
-                                    <i class="feather icon-users"></i>
-                                    <!-- <img class="feather" width="50px" height="50px" src="<?php echo base_url()?>assets/images/calon/<?=$value->image_calon?>"> -->
+                            <div class="" style="width: <?=$width?>%">
+                                <div class="card text-white widget-visitor-card" style="background-color: <?=$value->color_badge?>">
+                                    <div class="card-body text-center">
+                                        <h2 class="text-white" id="suara<?=$key?>"><?=$value->vote.' suara'?></h2>
+                                        <h6 class="text-white"><?='No Urut '.$value->no_urut_calon.' '.$value->nama_calon?></h6>
+                                        <i class="feather icon-users"></i>
+                                        <!-- <img class="feather" width="50px" height="50px" src="<?php echo base_url()?>assets/images/calon/<?=$value->image_calon?>"> -->
+                                    </div>
                                 </div>
-                            </div>
-                        </div><div><h1>&nbsp;</h1></div>
-                        <?php } ?> 
-                        <!-- visitors  end -->
-                    </div>
-                </div> 
+                            </div><div><h1>&nbsp;</h1></div>
+                            <?php } ?> 
+                            <!-- visitors  end -->
+                        </div>
+                    </div> 
 
-                <!-- progressbar static data start -->
-                <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <h5>Penghitungan Langusung di Lapangan</h5>
-                            <p id="coba"></p>
-                        </div>
-                        <div class="card-body pl-0 pb-0" id="vote">
-                            <div id="voting-chart" style="height: 600px"></div>
+                    <!-- progressbar static data start -->
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5>Penghitungan Langusung di Lapangan &nbsp; 
+                                    <button type="button" id="toggle_fullscreen" class="btn btn-sm btn-icon btn-outline-info" title="Full Screen">
+                                        <i id="ikon" class="feather icon-maximize-2"></i>
+                                    </button>
+                                </h5>
+                            </div>
+                            <div class="card-body pl-0 pb-0" id="vote" style="background-color: white">
+                                <div id="voting-chart" style="height: 600px; background-color: white"></div>
+                            </div>
                         </div>
                     </div>
+                    <!-- progressbar static data end -->
                 </div>
-                <!-- progressbar static data end -->
+                <!-- [ Main Content ] end -->
             </div>
-            <!-- [ Main Content ] end -->
 
             <script>
                 var color = [];
@@ -54,6 +59,10 @@
                             color.length = 0;
                             nama.length = 0;
                             floatchart(data);
+
+                            for (var i = 0; i < data.length; i++) {
+                                $('#suara' + i).text(data[i].voting + ' suara');
+                            }
                             // alert(data[0].nama);
                         },
                         error: function(data) {
@@ -76,16 +85,9 @@
                     return color;
                 }
 
-
-
                 function setRandomColor() {
                     $("#colorpad").css("background-color", getRandomColor());
                 }
-
-                function charts() {
-                    
-                }
-
                 
                 function floatchart(data) {
                     // var color = [clrs];
@@ -175,7 +177,7 @@
                             }
                         }
                         $('#voting-chart').remove(); // this is my <canvas> element
-                        $('#vote').append('<div id="voting-chart" style="height: 600px"><div>');
+                        $('#vote').append('<div id="voting-chart" style="height: 600px; background-color: white"><div>');
                         var chart = new ApexCharts(document.querySelector("#voting-chart"), options);
                         chart.render();
                     });
