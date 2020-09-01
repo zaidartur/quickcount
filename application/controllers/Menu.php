@@ -105,6 +105,22 @@ class Menu extends CI_Controller {
 		$this->load->view('404');
 	}
 
+	public function grafik()
+	{
+		$data = $this->calon->voting();
+
+		foreach ($data as $key => $value) {
+			$res[$key] = array(
+				'color'		=> $value->color_badge,
+				'nomor'		=> $value->no_urut_calon,
+				'nama'		=> $value->nama_calon,
+				'voting'	=> $value->vote,
+			);
+		}
+
+		echo json_encode($res);
+	}
+
 
 
 }
