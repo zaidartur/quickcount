@@ -95,6 +95,22 @@ class Menu extends CI_Controller {
 		$this->load->view('footer');
 	}
 
+	public function lapAkhir($id)
+	{
+		//decrypt
+		$admin_id 	= decrypt_url($id);
+
+		$data['header'] = 'Laporan Akhir';
+		$data['calon']  = $this->calon->getAll();
+		$data['admin']  = $this->db->get_where($this->_admin, array('id_admin' => $admin_id))->row();
+		$data['tps']	= $this->user->getAll();
+		$data['data_akhir'] = $this->user->isDataReal();
+
+		$this->load->view('header', $data);
+		$this->load->view('laporan/lap_data_akhir', $data);
+		$this->load->view('footer');
+	}
+
 	public function profile($id)
 	{
 		# code...
