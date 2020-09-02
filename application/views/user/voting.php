@@ -161,11 +161,11 @@
                 <input type="hidden" name="alert2" id="alert2" value="<?=$al?>">
                 <div class="col-xl-4 col-md-6">
 	            	<div class="card user-card user-card-1">
-						<div class="card-header border-0 p-2 pb-0">
+						<!-- <div class="card-header border-0 p-2 pb-0">
 							<div class="cover-img-block">
 								<img src="<?=base_url()?>assets/images/img-auth-big.jpg" alt="" class="img-fluid">
 							</div>
-						</div>
+						</div> -->
 						<div class="card-body pt-0">
 							<div class="user-about-block text-center">
 								<div class="row align-items-end">
@@ -274,13 +274,27 @@
 	                        					$kosong = $user->suara_golput;
 	                        				}
 	                        			?>
-	                        			<form action="<?=base_url()?>voting/data-akhir/<?=encrypt_url($user->id_user)?>" method="post">
+	                        			<form action="<?=base_url()?>voting/data-akhir/<?=encrypt_url($user->id_user)?>" method="post" id="akhir">
+	                        				<div class="row">
+	                        					<?php 
+	                        						foreach ($calon as $x => $y) { 
+	                        							$z = $this->db->get_where('data_csatu', array('user_id' => $user->id_user, 'calon_id' => $y->id_calon))->row();
+	                        					?>
+	                        						<div class="col-sm-3">
+					                        			<label for="<?=$y->id_calon?>"><?=$y->nama_calon?></label>
+					                                    <input type="number" class="form-control" id="<?=$y->id_calon?>" name="<?=$y->id_calon?>" placeholder="<?=$y->nama_calon?>" value="<?=$z->suara?>">
+					                                    &nbsp;
+					                                </div>
+	                        					<?php } ?>
+	                        				</div>
+
 		                        			<div class="row">
-				                        		<div class="col-sm-3">
+				                        		<!-- <div class="col-sm-3">
 				                        			<label for="sah"><i class="fas fa-check-circle"></i> Suara Sah</label>
 				                                    <input type="number" class="form-control" id="sah" name="sah" placeholder="Suara Sah" value="<?=$sah?>">
 				                                    &nbsp;
-				                                </div>
+				                                </div> -->
+				                                <input type="hidden" class="form-control" id="sah" name="sah" placeholder="Suara Sah" value="<?php echo array_sum($terhitung); ?>">
 				                                <div class="col-sm-3">
 				                                	<label for="rusak"><i class="fas fa-times-circle"></i> Suara Rusak</label>
 				                                    <input type="number" class="form-control" id="rusak" name="rusak" placeholder="Suara Rusak" value="<?=$rusak?>">
@@ -292,9 +306,16 @@
 				                                    &nbsp;
 				                                </div>
 				                                
-				                                <div class="col-sm-3" style="vertical-align: middle;">
+				                                <div class="col-sm-12">
+				                                	<label for="keterangan">Keterangan</label>
+				                                	<textarea class="form-control" id="keterangan" name="keterangan"><?=$user->keterangan_tps?></textarea>
+				                                </div>
+			                            	</div>
+
+			                            	<div class="row">
+			                            		<div class="col-sm-3" style="vertical-align: middle;">
 				                                	<h4>&nbsp;</h4>
-				                                	<button type="submit" class="btn btn-md btn-primary col-sm-3" title="Simpan">
+				                                	<button type="submit" class="btn btn-md btn-primary col-sm-3" id="simpan" title="Simpan">
 				                                		<i class="feather icon-save"></i>
 				                                	</button>
 				                                </div>
@@ -439,6 +460,13 @@
     	function logout() {
             window.location.href = '<?php echo base_url() ?>user-login';
         }
+
+        $("#akhir").keypress(function(e) {
+            //Enter key
+            if (e.which == 13) {
+                return false;
+            }
+        });
     </script>
 
 </body>
