@@ -72,7 +72,7 @@
                 </div>
                 <!-- header -->
 
-                <?php $cols = count($calon) + 2; ?>
+                <?php $cols = count($calon) + 3; ?>
                 <div class="col-sm-12">
                     <div class="card">
                         <div class="card-header">
@@ -92,10 +92,11 @@
                                         </tr>
                                         <tr>
                                             <?php foreach ($calon as $key => $value) { ?>
-                                                <th width="10" style="background-color: <?=$value->color_badge?>"><?=$value->nama_calon?></th>
+                                                <th width="10" style="color: white; background-color: <?=$value->color_badge?>"><?=$value->nama_calon?></th>
                                              <?php } ?>
-                                            <th class="bg-info" width="10">Suara Rusak</th>
-                                            <th class="bg-info" width="10">Suara Kosong</th>
+                                            <th width="10">Suara Rusak</th>
+                                            <th width="10">Suara Kosong</th>
+                                            <th width="10">Akumulasi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -108,15 +109,20 @@
                                             <td><?=$y->no_tps?></td>
                                             <td><?=$y->alamat_tps?></td>
                                             <td><?=$y->nama_user?></td>
-                                            <td><?=$y->dpt_tps?></td>
+                                            <td style="font-weight: bold;"><?=$y->dpt_tps?></td>
                                             <?php
                                                 foreach ($calon as $k => $val) {
                                                     $csatu = $this->db->get_where('data_csatu', array('user_id' => $y->id_user, 'calon_id' => $val->id_calon))->row();
+                                                    $jml[$k] = intval($csatu->suara);
                                             ?>
-                                                    <td style="background-color: <?=$val->color_badge?>"><?=$csatu->suara?></td>
-                                            <?php } ?>
-                                            <td class="bg-info"><?=$y->suara_tidak_sah?></td>
-                                            <td class="bg-info"><?=$y->suara_golput?></td>
+                                                    <td style="color: white; background-color: <?=$val->color_badge?>"><?=$csatu->suara?></td>
+                                            <?php 
+                                                } 
+                                                $akum = array_sum($jml) + intval($y->suara_tidak_sah) + intval($y->suara_golput);
+                                            ?>
+                                            <td><?=$y->suara_tidak_sah?></td>
+                                            <td><?=$y->suara_golput?></td>
+                                            <td style="font-weight: bolder;"><?=$akum?></td>
                                         </tr>
                                         <?php } ?>
                                     </tbody>
@@ -132,10 +138,6 @@
                                         </tr>
                                     </tfoot> -->
                                 </table>
-                            </div>
-                            <label>&nbsp;</label>
-                            <div class="alert alert-info" role="alert">
-                                Suara Masuk adalah akumulasi dari Suara Sah, Suara Rusak, dan Suara Kosong.
                             </div>
                         </div>
                     </div>
