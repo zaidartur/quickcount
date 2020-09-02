@@ -45,7 +45,7 @@
                                                 </div>
                                             </td>
                                             <td><?=$s->alamat_user?></td>
-                                            <td><?=$s->username?></td>
+                                            <td data-toggle="tooltip" data-placement="left" data-original-title="Pass : <?=$s->password?>"><?=$s->username?></td>
                                             <td><?=$s->no_tps?></td>
                                             <td><?=$s->alamat_tps?></td>
                                             <td>
@@ -119,7 +119,7 @@
                                                 <div class="form-group row">
                                                     <label for="user" class="col-sm-3 col-form-label">Username</label>
                                                     <div class="col-sm-9">
-                                                        <input type="text" class="form-control" id="user" name="user" placeholder="Username" required>
+                                                        <input type="text" class="form-control" id="user" name="user" placeholder="Username"  onchange="cek(this.value)" required><p id="checking"></p>
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
@@ -283,6 +283,33 @@
             <!-- [ Main Content ] end -->
 
             <script>
+                function cek(user) {
+                    var cek = $('#checking');
+                    $.ajax({
+                        url: '<?php echo base_url() ?>user/validateUser/' + user,
+                        type: 'POST',
+                        dataType: 'JSON',
+                        success: function(data){
+                            if (data.response == 'kosong') {
+                                // $('#checking').addClass('feather icon-check-circle');
+                                cek.attr('style', 'color: green');
+                                cek.html('<i class="feather icon-check-circle"></i> username aman');
+                                $('#user').removeAttr('style');
+                                $('#user').attr('style', 'border-color: green; color: green');
+                            } else if (data.response == 'exist') {
+                                // $('#checking').addClass('feather icon-x-circle');
+                                cek.attr('style', 'color: red');
+                                cek.html('<i class="feather icon-x-circle"></i> username sudah ada, mohon ganti yang lain');
+                                $('#user').removeAttr('style');
+                                $('#user').attr('style', 'border-color: red; color: red');
+                            }
+                        },
+                        error: function(data) {
+                            toastr.error('Upss, sepertinya ada yang salah');
+                        }
+                    });
+                }
+
                 function valid() {
                     var cek = $('#setuju');
 
