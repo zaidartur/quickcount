@@ -7,6 +7,7 @@ class M_user extends CI_Model {
 	private $_tps   = 'hasil_tps';
 	private $_calon = 'calon';
 	private $_live  = 'live_voting';
+	private $_csatu = 'data_csatu';
 
 	public function getAll()
 	{
@@ -27,32 +28,33 @@ class M_user extends CI_Model {
 	public function created($id)
 	{
 		//init
-		$file     = 'gambar';
-		$path     = './assets/images/user/';
 		$id_user  = uniqid();
 		$id_admin = decrypt_url($id);
 
-		if($_FILES[$file]['name'] == '') {
-			$foto   = 'noimage.png';
+		//cek username
+		$usr  = $this->db->get_where($this->_user, array('username' => $this->input->post('user')))->result();
+		if (count($usr) > 0) {
+			$res = 'exist';
 		} else {
-			$foto   = $this->_uploadGambar($file, $path, $id_calon);
+			$data = array(
+				'id_user'			=> $id_user,
+				'nama_user'			=> $this->input->post('nama'),
+				'alamat_user'		=> $this->input->post('alamat'),
+				'email_user'		=> $this->input->post('email'),
+				'username'			=> $this->input->post('user'),
+				'password'			=> $this->input->post('pass'),
+				'no_tps'			=> $this->input->post('tps'),
+				'alamat_tps'		=> $this->input->post('alamat_tps'),
+				'dpt_tps'			=> $this->input->post('dpt'),
+				'user_who_create'	=> $id_admin,
+				'user_datetime'		=> date('Y-m-d H:i:s'),
+			);
+			
+			$this->db->insert($this->_user, $data);
+			$res = 'kosong';
 		}
 
-		$data = array(
-			'id_user'			=> $id_user,
-			'nama_user'			=> $this->input->post('nama'),
-			'alamat_user'		=> $this->input->post('alamat'),
-			'email_user'		=> $this->input->post('email'),
-			'username'			=> $this->input->post('user'),
-			'password'			=> $this->input->post('pass'),
-			'no_tps'			=> $this->input->post('tps'),
-			'alamat_tps'		=> $this->input->post('alamat_tps'),
-			'dpt_tps'			=> $this->input->post('dpt'),
-			'user_who_create'	=> $id_admin,
-			'user_datetime'		=> date('Y-m-d H:i:s'),
-		);
-
-		return $this->db->insert($this->_user, $data);
+		return $res;
 	}
 
 	public function update()
@@ -184,10 +186,11 @@ class M_user extends CI_Model {
 	{
 		$calon  = $this->db->get($this->_calon)->result();
 		$tps 	= $this->db->get_where($this->_tps, array('user_id' => $user))->result();
+		$csatu 	= $this->db->get_where($this->_csatu, array('user_id' => $user))->result();
 		
 		//check every record in 'hasil_tps' while signin
 		foreach ($calon as $a => $b) {
-			$check = $this->db->get_where($this->_tps, array('user_id' => $user, 'calon_id' => $b->id_calon))->row();
+			$check  = $this->db->get_where($this->_tps, array('user_id' => $user, 'calon_id' => $b->id_calon))->row();
 			if (empty($check)) {
 				$id    = uniqid();
 				$obj   = array(
@@ -197,6 +200,18 @@ class M_user extends CI_Model {
 					'jumlah_suara'	=> 0,
 				);
 				$this->db->insert($this->_tps, $obj);
+			}
+
+			$check2 = $this->db->get_where($this->_csatu, array('user_id' => $user, 'calon_id' => $b->id_calon))->row();
+			if (empty($check2)) {
+				$id2    = uniqid();
+				$obj2   = array(
+					'data_id'		=> $id2,
+					'user_id'		=> $user,
+					'calon_id'		=> $b->id_calon,
+					'suara'			=> 0,
+				);
+				$this->db->insert($this->_csatu, $obj2);
 			}
 		}
 	}
@@ -211,6 +226,11 @@ class M_user extends CI_Model {
 		$this->db->where($data);
 		$this->db->order_by('no_tps', 'asc');
 		return $this->db->get($this->_user)->result();
+	}
+
+	public function validateUsers($user)
+	{
+		return $this->db->get_where($this->_user, array('username' => $user))->result();
 	}
 	
 
