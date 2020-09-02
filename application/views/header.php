@@ -142,6 +142,13 @@
 							</span>
 						</a>
 					</li>
+					<li class="pc-item pc-hasmenu <?php if($uri == 'laporan-akhir') { echo 'active'; } ?>">
+						<a href="<?php echo base_url()?>laporan-akhir/<?php echo md5('akhir').'_'.$user?>" class="pc-link "><span class="pc-micon"><i data-feather="clipboard"></i></span>
+							<span class="pc-mtext">
+								Laporan Akhir
+							</span>
+						</a>
+					</li>
 				</ul>
 			</div>
 		</div>
