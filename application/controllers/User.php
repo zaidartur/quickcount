@@ -25,14 +25,14 @@ class User extends CI_Controller {
 
 	public function create($id)
 	{
-		$obj 	= $this->user->created($id);
+		$obj = $this->user->created($id);
 		$rel = md5('relawan');
 
-		if($obj) {
+		if($obj == 'kosong') {
 			// $res = array('response' => 'sukses');
 			$this->session->set_flashdata('sukses', 'Berhasil menyimpan data');
 			header('Location: '.base_url().'relawan/'.$rel.'_'.$id);
-		} else {
+		} else if($obj == 'exist'){
 			$this->session->set_flashdata('error', 'Gagal menyimpan data');
 			header('Location: '.base_url().'relawan/'.$rel.'_'.$id);
 			// $res = array('response' => 'fail');
@@ -74,7 +74,7 @@ class User extends CI_Controller {
 		$id_user = decrypt_url($id);
 
 		$data['user']  = $this->user->getById($id_user);
-		// $data['calon'] = '';
+		$data['csatu'] = $this->db->get_where('data_csatu', array('user_id' => $id_user))->result();
 		$data['calon'] = $this->calon->getAll();
 		$data['tps']   = 'hasil_tps';
 
@@ -128,7 +128,17 @@ class User extends CI_Controller {
 			'suara_sah'			=> $this->input->post('sah'),
 			'suara_tidak_sah'	=> $this->input->post('rusak'),
 			'suara_golput'		=> $this->input->post('kosong'),
+			'keterangan_tps'	=> $this->input->post('keterangan'),
 		);
+
+		$calon   = $this->calon->getAll();
+		foreach ($calon as $key => $value) {
+			$dt = array(
+				'suara' => $this->input->post($value->id_calon),
+			);
+			$this->db->where(array('user_id' => $id_user, 'calon_id' => $value->id_calon));
+			$this->db->update('data_csatu', $dt);
+		}
 
 		$this->db->where('id_user', $id_user);
 		$upd = $this->db->update('user', $data);
@@ -140,6 +150,18 @@ class User extends CI_Controller {
 			$this->session->set_flashdata('error', 'simpan akhir error');
 			header('Location: '.base_url().'voting/user-is_'.$user);
 		}
+	}
+
+	public function validateUser($user)
+	{
+		$obj = $this->user->validateUsers($user);
+		if (count($obj) > 0) {
+			$res = array('response' => 'exist');
+		} else {
+			$res = array('response' => 'kosong');
+		}
+
+		echo json_encode($res);
 	}
 
 
