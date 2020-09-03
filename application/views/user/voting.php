@@ -160,7 +160,7 @@
                 ?>
                 <input type="hidden" name="alert2" id="alert2" value="<?=$al?>">
                 <div class="col-xl-4 col-md-6">
-	            	<div class="card user-card user-card-1">
+	            	<div class="card user-card user-card-1 mt-4">
 						<!-- <div class="card-header border-0 p-2 pb-0">
 							<div class="cover-img-block">
 								<img src="<?=base_url()?>assets/images/img-auth-big.jpg" alt="" class="img-fluid">
@@ -172,7 +172,7 @@
 									<div class="col text-left pb-3"></div>
 									<div class="col">
 										<div class="position-relative d-inline-block">
-											<img class="img-radius img-fluid wid-80" src="<?=base_url()?>assets/images/calon/<?=$l->image_calon?>" alt="User image">
+											<img class="img-radius img-fluid wid-80" src="<?=base_url()?>assets/images/calon/<?=$l->image_calon?>" alt="User image" style="position: block; background-repeat: no-repeat; background-size: cover; width: 80px; height: 80px;">
 										</div>
 									</div>
 									<div class="col text-right pb-3"></div>
