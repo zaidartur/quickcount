@@ -113,9 +113,14 @@
                                             <?php
                                                 foreach ($calon as $k => $val) {
                                                     $csatu = $this->db->get_where('data_csatu', array('user_id' => $y->id_user, 'calon_id' => $val->id_calon))->row();
-                                                    $jml[$k] = intval($csatu->suara);
+                                                    if (empty($csatu)) {
+                                                        $suara   = 0;
+                                                    } else {
+                                                        $suara   = $csatu->suara;
+                                                    }
+                                                    $jml[$k] = intval($suara);
                                             ?>
-                                                    <td style="color: white; background-color: <?=$val->color_badge?>"><?=$csatu->suara?></td>
+                                                    <td style="color: white; background-color: <?=$val->color_badge?>"><?=$suara?></td>
                                             <?php 
                                                 } 
                                                 $akum = array_sum($jml) + intval($y->suara_tidak_sah) + intval($y->suara_golput);
