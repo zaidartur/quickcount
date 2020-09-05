@@ -22,6 +22,7 @@
                                 <table id="user-list-table" class="table nowrap">
                                     <thead>
                                         <tr>
+                                            <th width="3">#</th>
                                             <th>Nama</th>
                                             <th>Alamat</th>
                                             <th>Username</th>
@@ -35,9 +36,10 @@
                                             foreach ($user as $u => $s) {
                                         ?>
                                         <tr>
+                                            <td width="3"><?=$u+1?></td>
                                             <td>
                                                 <div class="d-inline-block align-middle">
-                                                    <img src="<?=base_url()?>assets/images/user/user.jpg" alt="user image" class="img-radius align-top m-r-15" style="width:40px;">
+                                                    <!-- <img src="<?=base_url()?>assets/images/user/user.jpg" alt="user image" class="img-radius align-top m-r-15" style="width:40px;"> -->
                                                     <div class="d-inline-block">
                                                         <h6 class="m-b-0"><?=$s->nama_user?></h6>
                                                         <p class="m-b-0"><?=$s->email_user?></p>
@@ -61,6 +63,7 @@
                                     </tbody>
                                     <tfoot>
                                         <tr>
+                                            <th width="3">#</th>
                                             <th>Nama</th>
                                             <th>Alamat</th>
                                             <th>Username</th>
