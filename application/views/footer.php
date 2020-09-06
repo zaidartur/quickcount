@@ -79,8 +79,9 @@
     <!-- sweet alert Js -->
     <script src="<?php echo base_url()?>assets/js/plugins/sweetalert.min.js"></script>
 
-    <script>
 
+    <script>
+        
         $(document).ready(function() {
 
             if(localStorage.getItem('Status') == 'sukses') {
@@ -192,9 +193,29 @@
 
         <?php } ?>
 
-
-        $('#user-list-table').DataTable();
+        // $('#user-list-table').DataTable();
         $('#data-akhir').DataTable();
+        //datatables
+        $('#user-list-table').DataTable({ 
+ 
+            "processing": true, 
+            "serverSide": true, 
+            "order": [], 
+             
+            "ajax": {
+                "url": "<?php echo base_url('user/get_data_user')?>",
+                "type": "POST"
+            },
+ 
+             
+            "columnDefs": [
+            { 
+                "targets": [ 0 ], 
+                "orderable": false, 
+            },
+            ],
+ 
+        });
 
         function logout() {
             window.location.href = '<?php echo base_url() ?>';
