@@ -164,6 +164,46 @@ class User extends CI_Controller {
 		echo json_encode($res);
 	}
 
+	public function get_data_user()
+	{
+		$list = $this->user->get_datatables();
+		$data = array();
+		$no   = $_POST['start'];
+
+		foreach ($list as $field) {
+			$no++;
+			$row   = array();
+			$row[] = $no;
+			// $row[] = $field->nama_user;
+			$row[] = '<div class="d-inline-block align-middle">
+	                        <div class="d-inline-block">
+	                            <h6 class="m-b-0">'.$field->nama_user.'</h6>
+	                            <p class="m-b-0">'.$field->email_user.'</p>
+	                        </div>
+	                    </div>';
+			$row[] = $field->alamat_user;
+			$row[] = $field->username.'<div class="overlay-edit"><label>Pass : '.$field->password.'</label></div>';
+			$row[] = $field->no_tps;
+			$row[] = $field->alamat_tps;
+			// $row[] = $field->dpt_tps;
+			$row[] = $field->dpt_tps.'<div class="overlay-edit">
+                            <button type="button" class="btn btn-icon btn-success" title="Edit" name="'.$field->id_user.'" onclick="edituser(this.name)"><i class="feather icon-edit"></i></button>
+                            <button type="button" class="btn btn-icon btn-danger" title="Hapus" name="'.$field->id_user.'" onclick="hapususer(this.name)"><i class="feather icon-trash-2"></i></button>
+                        </div>';
+
+			$data[] = $row;
+		}
+
+		$output = array(
+			'draw' 				=> $_POST['draw'],
+			'recordsTotal' 		=> $this->user->count_all(),
+			'recordsFiltered'	=> $this->user->count_filtered(),
+			'data'				=> $data,
+		);
+
+		echo json_encode($output);
+	}
+
 
 
 }
