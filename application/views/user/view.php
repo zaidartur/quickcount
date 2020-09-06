@@ -32,34 +32,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php
-                                            foreach ($user as $u => $s) {
-                                        ?>
-                                        <tr>
-                                            <td width="3"><?=$u+1?></td>
-                                            <td>
-                                                <div class="d-inline-block align-middle">
-                                                    <!-- <img src="<?=base_url()?>assets/images/user/user.jpg" alt="user image" class="img-radius align-top m-r-15" style="width:40px;"> -->
-                                                    <div class="d-inline-block">
-                                                        <h6 class="m-b-0"><?=$s->nama_user?></h6>
-                                                        <p class="m-b-0"><?=$s->email_user?></p>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td><?=$s->alamat_user?></td>
-                                            <td data-toggle="tooltip" data-placement="left" data-original-title="Pass : <?=$s->password?>"><?=$s->username?></td>
-                                            <td><?=$s->no_tps?></td>
-                                            <td><?=$s->alamat_tps?></td>
-                                            <td>
-                                                <?=$s->dpt_tps?>
-                                                <!-- <span class="badge badge-light-success">Active</span> -->
-                                                <div class="overlay-edit">
-                                                    <button type="button" class="btn btn-icon btn-success" title="Edit" onclick="edituser('<?=$s->id_user?>')"><i class="feather icon-edit"></i></button>
-                                                    <button type="button" class="btn btn-icon btn-danger" title="Hapus" onclick="hapususer('<?=$s->id_user?>')"><i class="feather icon-trash-2"></i></button>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <?php } ?>
+                                        
                                     </tbody>
                                     <tfoot>
                                         <tr>
@@ -75,6 +48,7 @@
                                 </table>
                             </div>
                         </div>
+                       <!--  <button type="button" class="btn btn-primary btn-sm" id="heee" onclick="klik(String(oke))"><i class="feather icon-plus"></i>Tambah</button> -->
                     </div>
                 </div>
 
@@ -378,5 +352,10 @@
                             toastr.error('Upss, sepertinya ada yang salah');
                         }
                     });
+                }
+
+                function klik(i) {
+                    var a = String(i);
+                    alert(a);
                 }
             </script>
